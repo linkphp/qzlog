@@ -1,0 +1,22 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li><a href="index.php?u=tag-index">标签列表</a></li>
+        <li class="active"><a href="index.php?u=tag-add">添加标签</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">添加标签</div>
+<form onsubmit="return hd_submit(this,'index.php?u=tag-add','index.php?u=tag-index')">
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">标签名 <span class="star">*</span></th>
+            <td><input type="text" name="name" class="hd-w300" required=""/></td>
+        </tr>
+        <tr>
+            <th class="hd-w100">描述</th>
+            <td><textarea name="content" class="hd-w400 hd-h100"></textarea></td>
+        </tr>
+    </table>
+    <button class="hd-btn" type="submit">确定</button>
+</form>
+{inc:footer.htm}

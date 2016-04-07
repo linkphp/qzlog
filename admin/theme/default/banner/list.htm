@@ -1,0 +1,63 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li class="active"><a href="index.php?u=banner-index">Banner列表</a></li>
+        <li><a href="index.php?u=banner-add">添加Banner</a></li>
+    </ul>
+</div>
+<form onsubmit="return hd_submit(this,'index.php?u=banner-upSort','index.php?u=banner-index')">
+<table class="hd-table hd-table-list hd-form">
+    <thead>
+      <tr>
+      	<td class="hd-w50">排序</td>
+      	<td>预览</td>
+      	<td>标题</td>
+        <td>URL</td>
+		<td>图片地址</td>
+        <td class="hd-w100">操作</td>
+      </tr>
+	</thead>
+	<tbody>
+	{if:empty($list)}<td colspan='6'>暂无!</td>{/if}
+	{loop:$list $v}
+	<tr>
+		<td><input type="text" class="hd-w30" value="{$v[num]}" name="list_sort[{$v[id]}]"/></td>
+		<td><img src="{$v[picurl]}" class="hd-w40 hd-h30" onmouseover="view_image(this)"/></td>
+		<td>{$v[name]}</td>
+		<td>{$v[url]}</td>
+		<td>{$v[picurl]}</td>
+		<td><a href="index.php?u=banner-edit-id-{$v[id]}">编辑</a> | <a href="javascript:ajax_del({$v[id]});">删除</a></td>
+	</tr>
+	{/loop}
+	</tbody>
+</table>
+<input type="submit" class="hd-btn" value="排序" />
+</form>
+<script>
+    //预览图片
+    function view_image(obj){
+        var src = $(obj).attr('src');
+        var viewImg = $('#view_img');
+        //删除预览图
+        if (viewImg.length >= 1){
+            viewImg.remove();
+        }
+        //鼠标移除时删除预览图
+        $(obj).mouseout(function (){
+            $('#view_img').remove();
+        })
+        if (src){
+            var offset = $(obj).offset();
+            var _left = 100 + offset.left + "px";
+            var _top = offset.top - 50 + "px";
+            var html = '<img src="' + src + '" style="border:solid 5px #dcdcdc;position:absolute;z-index:1000;width:300px;height:200px;left:' + _left + ';top:' + _top + ';" id="view_img"/>';
+            $('body').append(html);
+        }
+    }
+
+    //删除
+    function ajax_del($id){
+        hd_ajax('index.php?u=banner-del', {id: $id}, 'index.php?u=banner-index');
+    }
+</script>
+{inc:footer.htm}

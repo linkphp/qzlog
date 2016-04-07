@@ -1,0 +1,87 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li class="active">
+            <a href="index.php?u=category-index">网站栏目</a>
+        </li>
+        <li>
+            <a href="index.php?u=category-add">添加栏目</a>
+        </li>
+    </ul>
+</div>
+<form onsubmit="return hd_submit(this,'index.php?u=category-upSort','index.php?u=category-index')">
+  <table class="hd-table hd-table-list hd-form">
+    <thead>
+      <tr>
+        <td>栏目ID</td>
+        <td>名称</td>
+        <td>文档数</td>
+        <td>属性</td>
+        <td>状态</td>
+        <td>操作</td>
+        <td>排序</td>
+      </tr>
+  </thead>
+  <tbody>
+  	{loop:$list $v}
+    <tr>
+      	<td class="hd-w50">{$v[cid]}</td>
+        <td class="hd-w300">{if:$v['attribute'] == 2}{$v[_name]}{else}{$v[_name]}{/if}</td>
+		<td class="hd-w50">{if:$v['attribute'] == 2}<a href="index.php?u=article-indexList-cid-{$v[cid]}">{$v[count]}</a>{else}{/if}</td>
+		<td class="hd-w50">{php}if($v['attribute'] == 1){echo '频道封面';}elseif($v['attribute'] == 2){echo '列表页';}else{echo '跳转链接';}{/php}</td>
+        <td class="hd-w50">{if:$v[status] == 1}正常{else}<strong>禁用</strong>{/if}</td>
+        <td class="hd-w100">
+            {if:$v['attribute'] == 3}<a href="{$v[urlname]}" target="_blank">预览</a>{else}<a href="../index.php?u=category-index-cid-{$v[cid]}{php}echo $_ENV['_config']['url_suffix'];{/php}" target="_blank">预览</a>{/if} |
+        	<a href="index.php?u=category-edit-cid-{$v[cid]}">更改</a> |
+            <a href="javascript:modal_categoryMove('{$v[cid]}');">移动</a> |
+            <a href="javascript:ajax_del_category('{$v[cid]}');">删除</a>
+      </td>
+        <td class="hd-w20"><input type="text" value="{$v[sort]}" name="list_sort[{$v[cid]}]" class="hd-w20"/></td>
+    </tr>
+	{/loop}
+  </tbody>
+</table>
+<input type="submit" class="hd-btn hd-float-right" value="排序" />
+</form>
+<script>
+    function ajax_del_category(cid){
+        hd_modal({
+            width: 400,//宽度
+            height: 200,//高度
+            title: '提示',//标题
+            content: '确定删除吗',//提示信息
+            button: true,//显示按钮
+            button_success: "确定",//确定按钮文字
+            button_cancel: "关闭",//关闭按钮文字
+            timeout: 0,//自动关闭时间 0：不自动关闭
+            shade: true,//背景遮罩
+            shadeOpacity: 0.2,//背景透明度
+            success: function () {//点击确定后的事件
+                var jampUrl = window.location.href;
+                hd_ajax('index.php?u=category-del', {cid:cid}, jampUrl);
+            },
+            cancel: function () {//点击关闭后的事件
+                hd_alert({
+                    message: '取消删除',//显示内容
+                    timeout: 1//显示时间
+                })
+            }
+        });
+    }
+
+    function modal_categoryMove(cid){
+        hd_modal({
+            width: 600,//宽度
+            height: 300,//高度
+            title: '栏目移动',//标题
+            content: '<iframe style="width: 100%;height: 200px" src="index.php?u=category-move-cid-'+cid+'" frameborder="0"></iframe>',//提示信息
+            button: false,//显示按钮
+            button_success: "确定",//确定按钮文字
+            button_cancel: "关闭",//关闭按钮文字
+            timeout: 0,//自动关闭时间 0：不自动关闭
+            shade: true,//背景遮罩
+            shadeOpacity: 0.2//背景透明度
+        });
+    }
+</script>
+{inc:footer.htm}

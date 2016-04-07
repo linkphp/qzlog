@@ -1,0 +1,96 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+    		<li class="active"><a href="index.php?u=extfield-index">扩展字段</a></li>
+    </ul>
+</div>
+<button id="addfield" class="hd-btn hd-btn-sm">新增方案</button>
+<form method="post" class="hd-table-form">
+<table class="hd-table hd-table-list hd-form">
+	<thead>
+      <tr>
+		<td><input type="checkbox" id="selectAllContent"/></td>
+      	<td>ID</td>
+        <td>方案名称</td>
+        <td>描述</td>
+        <td>操作</td>
+      </tr>
+	</thead>
+	<tbody>
+	{if:!empty($list)}
+  	{loop:$list $v}
+    <tr>
+		<td class="hd-w30"><input type="checkbox" name="projectid[]" value="{$v[projectid]}" /></td>
+      	<td class="hd-w50">{$v[projectid]}</td>
+        <td class="hd-w300">{$v[name]}</td>
+        <td>{$v[description]}</td>
+        <td class="hd-w200">
+        	<a href="index.php?u=extField-designField-id-{$v[projectid]}">设计字段</a> |
+			<a href="javascript:;" class="editfield">编辑</a> |
+			<a href="javascript:;" class="delfield">删除</a>
+		</td>
+	</tr>
+	{/loop}
+	{else}
+	<tr><td colspan="8"><b>暂无方案!</b></td></tr>
+	{/if}
+	</tbody>
+</table>
+
+	<input type="button" class="hd-btn hd-btn-xm" value="全选" onclick="select_all()"/>
+	<input type="button" class="hd-btn hd-btn-xm" value="反选" onclick="reverse_select()"/>
+	<input type="button" class="hd-btn hd-btn-xm delcheckall"  value="批量删除">
+
+<div class="hd-title-header">共{$count}条</div>{$page}
+</form>
+
+<script type="text/template" id="temp">
+	<form id="addfield_form">
+	<table class="hd-form hd-table hd-table-form">
+		<tbody>
+		<tr>
+			<td class="hd-w100">名称</td>
+			<td><input type="text" id="name" name="name" value="{{name}}"/></td>
+		</tr>
+		<tr>
+			<td>描述</td>
+			<td><textarea id="description" name="description" class="hd-w300 hd-h100">{{description}}</textarea></td>
+		</tr>
+		</tbody>
+	</table>
+	<input type="hidden" name="id" value="{{id}}" />
+	</form>
+</script>
+
+<script type="text/javascript">
+	$('#addfield').click(function(){
+		$.field.addfield(this);
+	})
+	$('.editfield').click(function(){
+		$.field.editfield(this);
+		return false;
+	})
+	$('.delfield').click(function(){
+		var id = $(this).parent().parent().find('td').eq(1).html();
+		$.field.delfield(id);
+		return false;
+	})
+	//全选
+	$("input#selectAllContent").click(function () {
+	    $("[type='checkbox']").attr("checked", $(this).attr("checked") == "checked");
+	})
+	//全选
+	function select_all() {
+	    $("[type='checkbox']").attr("checked", "checked");
+	}
+	//反选
+	function reverse_select() {
+	    $("[type='checkbox']").attr("checked", function () {
+	        return !$(this).attr("checked") == 1;
+	    });
+	}
+	$('.delcheckall').click(function(){
+		$.field.delfieldall(this);
+	})
+</script>
+{inc:footer.htm}

@@ -1,0 +1,55 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+    		<li><a href="index.php?u=member-mypasswd">我的密码</a></li>
+        <li class="active"><a href="index.php?u=member-myinfo">我的信息</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">我的资料修改</div>
+<form onsubmit="return hd_submit(this,'index.php?u=member-myinfo','index.php?u=member-myinfo')">
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">用户名</th>
+            <td>{$userInfo[username]}</td>
+        </tr>
+        <tr>
+            <th>注册时间</th>
+            <td>{php} echo date('Y-m-d H:i:s', $userInfo['regdate']);{/php}</td>
+        </tr>
+        <tr>
+            <th>注册IP</th>
+            <td>{$userInfo[regip]}</td>
+        </tr>
+        <tr>
+            <th>最后登录时间</th>
+            <td>
+                {if:$userInfo[last_login_time] == 0}
+                {else}
+                {php} echo date('Y-m-d H:i:s', $userInfo['last_login_time']);{/php}
+                {/if}
+            </td>
+        </tr>
+        <tr>
+            <th>最后登录ip</th>
+            <td>{$userInfo[last_login_ip]}</td>
+        </tr>
+        <tr>
+            <th>登陆次数</th>
+            <td>{$userInfo[login_count]}</td>
+        </tr>
+        <tr>
+            <th>昵称</th>
+            <td><input type="text" name="nickname" value="{$userInfo[nickname]}" class="hd-w200"/></td>
+        </tr>
+        <tr>
+            <th class="hd-w100">EMAIL</th>
+            <td><input type="text" class="hd-w200" name="email" value="{$userInfo[email]}" /></td>
+        </tr>
+        <tr>
+            <th>备注</th>
+            <td><textarea name="remark" class="hd-w300 hd-h80">{$userInfo[remark]}</textarea></td>
+        </tr>
+    </table>
+    <input type="submit" class="hd-btn" value="确定" />
+</form>
+{inc:footer.htm}

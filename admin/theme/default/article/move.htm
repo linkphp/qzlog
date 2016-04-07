@@ -1,0 +1,66 @@
+{inc:header.htm}
+<form method="post" onsubmit="return false" class="hd-form">
+	<input type="hidden" name="cid" value="{$cid}" class="hd-w400"/>
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <td width='30%'>文档ID：</td>
+            <td width='70%'><input type="text" name="nid" value="{$nid}" class="hd-w400"/></td>
+        </tr>
+        <tr>
+            <td width='30%'>目标栏目：</td>
+            <td width='70%'>
+                <select name="to_cid" style="width:250px;height:215px;" size="100">
+                    {if:!empty($list)}
+                    {loop:$list $v}
+                    <option value="{$v[cid]}" {$v[disabled]} {$v[selected]}>{$v[_name]}</option>
+                    {/loop}
+                    {/if}
+                </select>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" class="hd-btn" value="确定"/>
+</form>
+<style type="text/css" >
+    body {
+        background: #FFFFFF;
+    }
+</style>
+<script>
+    //移动
+    $("form").submit(function (){
+        var data=$(this).serialize();
+        var url="index.php?u=article-move";
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "JSON",
+            cache: false,
+            data: data,
+            success: function (data){
+                if (data.status == 1){
+                    hd_alert({
+                        message: data.message,//显示内容
+                        timeout: 2,//显示时间
+                        success: function () {
+                            //这是回调函数
+                            parent.location.reload();
+                            window.parent.hd_modal_close();
+                        }
+                    })
+                }else{
+                    hd_alert({
+                        message: data.message,//显示内容
+                        timeout: 2,//显示时间
+                        success: function () {
+                            //这是回调函数
+                            parent.location.reload();
+                            window.parent.hd_modal_close();
+                        }
+                    })
+                }
+            }
+        })
+    })
+</script>
+{inc:footer.htm}

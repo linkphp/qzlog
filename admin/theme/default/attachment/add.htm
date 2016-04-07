@@ -1,0 +1,32 @@
+{inc:header.htm}
+<style type="text/css">
+	.ke-container{
+		height: 0px;
+	}
+</style>
+<div class="hd-menu-list">
+    <ul>
+        <li><a href="index.php?attachment-index">附件管理</a></li>
+        <li class="active"><a href="index.php?attachment-add">上传附件</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">上传</div>
+	<table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">图片</th>
+            <td>
+	            <input type="text" id="picurlurl" name="picurl" class="hd-w300" />
+				<input class="hd-btn hd-btn-xm" type="button" value="选择图片" onclick="createdImage('picurl');">
+            </td>
+        </tr>
+        <tr>
+            <th class="hd-w100">文件</th>
+            <td>
+                <input type="text" id="fileurlurl" name="fileurl" class="hd-w300" />
+                <input class="hd-btn hd-btn-xm" type="button" value="选择文件" onclick="createdFile('fileurl');">
+            </td>
+        </tr>
+	</table>
+<input type="hidden" class="editor" />
+<script type="text/javascript" src="{$SITE_URL}static/js/content.js"></script>
+{inc:footer.htm}

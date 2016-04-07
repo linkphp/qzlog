@@ -1,0 +1,80 @@
+{inc:header.htm}
+<body>
+
+<div class="hd-menu-list">
+    <ul>
+        <li><a href="index.php?u=plugin-index">插件列表</a></li>
+        <li class="active"><a href="index.php?u=links-index">友情链接</a></li>
+    </ul>
+</div>
+<form onsubmit="return hd_submit(this,'index.php?u=links-add','index.php?u=links-index')" class="hd-form">
+	<table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">名称 <span class="star">*</span></th>
+            <td><input type="text" name="name" class="hd-w300" required=""/></td>
+        </tr>
+        <tr>
+            <th class="hd-w100">URL <span class="star">*</span></th>
+            <td><input type="text" name="url" class="hd-w300"  value="http://" required=""/></td>
+        </tr>
+        <tr>
+            <th class="hd-w100">排序 <span class="star">*</span></th>
+            <td><input type="text" name="num" class="hd-w50" value="99"/></td>
+        </tr>
+    </table>
+    <button class="hd-btn" type="submit">添加</button>
+</form>
+<table class="hd-table hd-table-list hd-form">
+	<thead>
+	  <tr>
+		<td>序号</td>
+	  	<td>网站名称</td>
+	    <td>网站 URL</td>
+		<td>排序</td>
+	    <td>操作</td>
+	  </tr>
+	</thead>
+  <tbody>
+{if:empty($links)}<td colspan='5'>暂无!</td>{/if}
+	{loop:$links $v $k}
+	<tr>
+		<form onsubmit="return hd_submit(this,'index.php?u=links-edit','index.php?u=links-index')" class="hd-form">
+			<input type="hidden" name="key" value="{$k}"/>
+			<td>{$k}</td>
+			<td><input type="text" name="name" class="hd-w300" value="{$v[name]}"/></td>
+			<td><input type="text" name="url" class="hd-w300" value="{$v[url]}"/></td>
+			<td><input type="text" name="num" class="hd-w50" value="{$v[num]}"/></td>
+			<td><input type="submit" value="编辑" class="hd-btn hd-btn-xm"/> <a href="javascript:ajax_del({$k});" class="hd-btn hd-btn-danger hd-btn-xm">删除</a></td>
+		</form>
+	</tr>
+		{/loop}
+  </tbody>
+</table>
+<script>
+    function ajax_del($k){
+    		hd_modal({
+	        width: 400,//宽度
+	        height: 200,//高度
+	        title: '提示',//标题
+	        content: '确定删除吗',//提示信息
+	        button: true,//显示按钮
+	        button_success: "确定",//确定按钮文字
+	        button_cancel: "关闭",//关闭按钮文字
+	        timeout: 0,//自动关闭时间 0：不自动关闭
+	        shade: true,//背景遮罩
+	        shadeOpacity: 0.2,//背景透明度
+	        success: function () {//点击确定后的事件
+	            hd_ajax('index.php?u=links-del', {key: $k}, 'index.php?u=links-index');
+	        },
+	        cancel: function () {//点击关闭后的事件
+	            hd_alert({
+	                message: '取消删除',//显示内容
+	                timeout: 1//显示时间
+	            })
+	        }
+	    });
+    }
+</script>
+
+</body>
+</html>

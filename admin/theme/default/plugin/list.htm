@@ -1,0 +1,112 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+    		<li class="active"><a href="index.php?u=plugin-index">本地插件</a></li>
+    		<li><a href="http://www.qzlog.com/bbs/forum-46-1.html" target="_self">在线插件</a></li>
+    </ul>
+</div>
+<table class="hd-table hd-table-list hd-form">
+	{if:empty($plugins[enable]) && empty($plugins[disable]) && empty($plugins[not_install])}
+	{else}
+	<thead>
+	  <tr>
+	    <td>ICON</td>
+	    <td class="hd-w200">插件名</td>
+	    <td>说明</td>
+	    <td class="hd-w80">版本号</td>
+	    <td class="hd-w120">作者</td>
+	    <td class="hd-w80">更新于</td>
+	    <td class="hd-w80">操作</td>
+	  </tr>
+	</thead>
+	{/if}
+	<tbody>
+	{if:empty($plugins[enable]) && empty($plugins[disable]) && empty($plugins[not_install])}
+			<div class="hd-title-header">暂无插件</div>
+			{else}
+			{loop:$plugins[enable] $v $k}
+				<tr>
+					<td>{if:isset($v['is_show'])}<img src="{$SITE_URL}plugin/{$k}/icon.png" width="48" height="48"/>{/if}</td>
+					<td >{$v[name]}({$k})</td>
+					<td >{$v[brief]}</td>
+					<td >{$v[version]}</td>
+					<td ><a href="{$v[authorurl]}" target="_blank">{$v[author]}</a></td>
+					<td >{$v[update]}</td>
+					<td >
+						<a href="javascript:ajax_disabled('{$k}');">停用</a> {if:!empty($v['setting'])}| <a href="{$v[setting]}">设置</a>{/if}
+					</td>
+				</tr>
+			{/loop}
+			{loop:$plugins[disable] $v $k}
+				<tr>
+					<td>{if:isset($v['is_show'])}<img src="{$SITE_URL}plugin/{$k}/icon.png" width="48" height="48"/>{/if}</td>
+					<td >{$v[name]}({$k})</td>
+					<td >{$v[brief]}</td>
+					<td >{$v[version]}</td>
+					<td ><a href="{$v[authorurl]}" target="_blank">{$v[author]}</a></td>
+					<td >{$v[update]}</td>
+					<td >{if:!empty($v['setting']) && !empty($v['setting_ok'])}
+					<a href="javascript:parent.oneTab('{$v[setting]}');">设置</a> |
+					{else}
+					<a href="javascript:ajax_enable('{$k}');">启用</a> |
+					{/if}
+					<a href="javascript:ajax_delete('{$k}');">删除</a></td>
+				</tr>
+			{/loop}
+			{loop:$plugins[not_install] $v $k}
+				<tr>
+					<td>{if:isset($v['is_show'])}<img src="{$SITE_URL}plugin/{$k}/icon.png" width="48" height="48"/>{/if}</td>
+					<td >{$v[name]}({$k})</td>
+					<td >{$v[brief]}</td>
+					<td >{$v[version]}</td>
+					<td ><a href="{$v[authorurl]}" target="_blank">{$v[author]}</a></td>
+					<td >{$v[update]}</td>
+					<td >
+					<a href="javascript:ajax_install('{$k}');">安装</a> |
+					<a href="javascript:ajax_delete('{$k}');">删除</a>
+					</td>
+				</tr>
+			{/loop}
+
+			{/if}
+
+	</tbody>
+</table>
+<script>
+    function ajax_install(k){
+        hd_ajax('index.php?u=plugin-install', {dir:k}, 'index.php?u=plugin-index');
+    }
+
+    function ajax_enable(k){
+        hd_ajax('index.php?u=plugin-enable', {dir:k}, 'index.php?u=plugin-index');
+    }
+
+    function ajax_disabled(k){
+        hd_ajax('index.php?u=plugin-disabled', {dir:k}, 'index.php?u=plugin-index');
+    }
+
+    function ajax_delete(k){
+		hd_modal({
+	        width: 400,//宽度
+	        height: 200,//高度
+	        title: '提示',//标题
+	        content: '确定删除吗',//提示信息
+	        button: true,//显示按钮
+	        button_success: "确定",//确定按钮文字
+	        button_cancel: "关闭",//关闭按钮文字
+	        timeout: 0,//自动关闭时间 0：不自动关闭
+	        shade: true,//背景遮罩
+	        shadeOpacity: 0.2,//背景透明度
+	        success: function () {//点击确定后的事件
+	            hd_ajax('index.php?u=plugin-delete', {dir:k},'index.php?u=plugin-index');
+	        },
+	        cancel: function () {//点击关闭后的事件
+	            hd_alert({
+	                message: '取消删除',//显示内容
+	                timeout: 1//显示时间
+	            })
+	        }
+	    });
+    }
+</script>
+{inc:footer.htm}

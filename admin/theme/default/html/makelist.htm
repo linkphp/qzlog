@@ -1,0 +1,32 @@
+{inc:header.htm}
+<form action="index.php?u=html-makelist" method="post">
+    <div class="hd-title-header">温馨提示</div>
+    <div class="help">
+        <ul>
+            <li>如果生成失败，请将每轮更新条数设置小些</li>
+        </ul>
+    </div>
+    <div class="hd-title-header">选择要更新的栏目</div>
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <td>
+                <select name="cid[]" style="height: 200px;width: 50%"
+                        title="按住“Ctrl”或“Shift”键可以多选，按住“Ctrl”可取消选择" multiple="multiple">
+                    <option value="0" selected="selected">全部栏目</option>
+					{loop:$list $v}
+						<option value="{$v[cid]}">{$v[_name]}</option>
+					{/loop}
+                </select>
+            </td>
+        </tr>
+        <tr>
+        	<td>每次最大更新 <input class="hd-w100" type="text" value="10" name="step_row"> 页</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="开始生成HTML" class="hd-btn"/>
+            </td>
+        </tr>
+    </table>
+</form>
+{inc:footer.htm}

@@ -1,0 +1,73 @@
+{inc:header.htm}
+<div class="hd-title-header">温馨提示</div>
+<div class="help">
+    <ul>
+        <li>请先清空栏目下的文章才可以移动</li>
+    </ul>
+</div>
+<form method="post" onsubmit="return false" class="hd-form">
+    <input type="hidden" name="oldCid" value="{$category[cid]}"/>
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <td width='30%'>你选择的栏目是：</td>
+            <td width='70%'>{$category[name]}</td>
+        </tr>
+        <tr>
+            <td width='30%'>你希望移动到哪个栏目？</td>
+            <td width='70%'>
+                <select name="to_cid" class="hd-w200">
+                    <option value="0">移动为顶级栏目</option>
+                    {if:!empty($list)}
+                    {loop:$list $v}
+                    <option value="{$v[cid]}">{$v[_name]}</option>
+                    {/loop}
+                    {/if}
+                </select>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" class="hd-btn" value="确定"/>
+</form>
+<style type="text/css" >
+    body {
+        background: #FFFFFF;
+    }
+</style>
+<script>
+    //移动
+    $("form").submit(function (){
+        var data=$(this).serialize();
+        var url="index.php?u=category-move";
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "JSON",
+            cache: false,
+            data: data,
+            success: function (data){
+                if (data.status == 1){
+                    hd_alert({
+                        message: data.message,//显示内容
+                        timeout: 2,//显示时间
+                        success: function (){
+                            //这是回调函数
+                            parent.location.reload();
+                            window.parent.hd_modal_close();
+                        }
+                    })
+                }else{
+                    hd_alert({
+                        message: data.message,//显示内容
+                        timeout: 2,//显示时间
+                        success: function (){
+                            //这是回调函数
+                            parent.location.reload();
+                            window.parent.hd_modal_close();
+                        }
+                    })
+                }
+            }
+        })
+    })
+</script>
+{inc:footer.htm}

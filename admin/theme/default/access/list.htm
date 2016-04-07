@@ -1,0 +1,58 @@
+{inc:header.htm}
+<table class="hd-table hd-table-list hd-form">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>角色名</th>
+            <th>描述</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+    </thead>
+    <tbody>
+      	{loop:$list $v}
+      	<form onsubmit="return hd_submit(this,'index.php?u=access-doRole','index.php?u=access-index')">
+        <tr>
+          <td class="role_id hd-w100">{$v[role_id]}</td>
+          	<td><input type="text" name="roleName" value="{$v[role_name]}" /></td>
+          	<td><input type="text" name="description" value="{$v[description]}" /></td>
+            <td>启用：
+            	<select name="status">
+            	{if:$v[status] == 1}
+                <option value="1" selected>是</option>
+                <option value="0">否</option>
+                {else}
+                <option value="1">是</option>
+                <option value="0" selected>否</option>
+                {/if}
+            	</select>
+			</td>
+            <td class="hd-w200">
+              	<input type="hidden" name="role_id" value="{$v[role_id]}" />
+                <input type="submit" class="hd-btn hd-btn-xm hd-btn-primary" value="更新" />
+                <a href="index.php?u=access-auth-role_id-{$v[role_id]}" class="hd-btn hd-btn-xm">权限分配</a>
+                <a href="javascript:ajax_del_user_role({$v[role_id]});" class="hd-btn hd-btn-danger hd-btn-xm userroledelete">删除</a>
+          </td>
+        </tr>
+        </form>
+		{/loop}
+  </tbody>
+</table>
+    <div class="hd-title-header">共 {$count} 条记录</div>
+<script>
+$(document).ready(function(e) {
+		$('.userroledelete').click(function(e) {
+      var r = confirm('一旦删除将无法恢复，确定要删除吗？');
+			if(r == true){
+				return true;
+			}else{
+				return false;
+			}
+    });
+});
+  function ajax_del_user_role(roleId) {
+  	var jampUrl = window.location.href;
+      hd_ajax('index.php?u=access-roleDelete', {roleId:roleId},jampUrl);
+  }
+</script>
+{inc:footer.htm}

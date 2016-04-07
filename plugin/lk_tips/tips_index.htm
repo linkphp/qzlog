@@ -1,0 +1,23 @@
+{inc:header.htm}
+<body>
+
+<div class="hd-menu-list">
+    <ul>
+        <li><a href="index.php?u=plugin-index">插件列表</a></li>
+        <li class="active"><a href="index.php?u=tips-index">添加小贴士</a></li>
+    </ul>
+</div>
+<form onsubmit="return hd_submit(this,'index.php?u=tips-index','index.php?u=tips-index')">
+	<table class="hd-table hd-table-form hd-form">
+	    <tr>
+	        <th class="hd-w100">小贴士 <span class="star">*</span></th>
+	        <td><input type="text" name="tip" class="hd-w500" required=""/>
+				<span class="hd-validate-notice">输入你要填写的tips</span>
+	        </td>
+	    </tr>
+	</table>
+	<button class="hd-btn" type="submit">添加</button>
+</form>
+
+</body>
+</html>

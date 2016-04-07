@@ -1,0 +1,47 @@
+<div class="pure-u-1-3">
+    <div class="pure-u-container">
+        <div class="siderbar">
+            <!-- 搜索开始 -->
+            <div class="widget box-shadow box-noise widget-search">
+                <form class="pure-form search-form" method="get" action="index.php">
+                    <input type="hidden" name="u" value="search-index">
+                    <input class="pure-input-rounded" name="keyword" value="{$keyword}" type="text">
+                    <button type="submit" class="pure-button fa fa-search" id="searchsubmit"></button>
+                </form>
+            </div>
+            <!-- 搜索结束 -->
+            <!-- Ad开始 -->
+            <div class="adsoho box-shadow">
+                <img src="{$cfg[siteurl]}theme/{$cfg[theme]}/images/blog.jpg">
+            </div>
+            <!-- Ad结束 -->
+            <!-- 编辑推荐开始 -->
+            {block:arclist flag="3" cid="1" limit="4" life="3600"}
+            <div class="widget box-shadow">
+                <div class="widget-title"><h4>编辑推荐</h4></div>
+                <ul class="sidebar-post-list">
+                   {loop:$data[list] $qz}
+                    <li><a href="{$qz[url]}" class="image_thumb_zoom"><img src="{$cfg[siteurl]}{$qz[thumb]}" width="132" height="74"></a><p>{$qz[description]}</p></li>
+                    {/loop}
+                </ul>
+            </div>
+            {/block}
+            <!-- 编辑推荐结束 -->
+            {if:$_ENV[_tplname] == 'article_show.htm'}
+                <!-- 相关文章开始 -->
+                {block:taglike limit="4" life="3600"}
+                <div class="widget box-shadow">
+                    <div class="widget-title"><h4>相关文章</h4></div>
+                    <ul class="sidebar-post-list">
+                       {loop:$data[list] $qz}
+                        <li><a href="{$qz[url]}" class="image_thumb_zoom"><img src="{$cfg[siteurl]}{$qz[thumb]}" width="132" height="74"></a><p>{$qz[description]}</p></li>
+                        {/loop}
+                    </ul>
+                </div>
+                {/block}
+                <!-- 相关文章结束 -->
+            {/if}
+        </div>
+    </div>
+    <!--侧边栏结束-->
+</div>

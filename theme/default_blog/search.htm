@@ -1,0 +1,57 @@
+{inc:header.htm}
+<body class="home blog pace-done">
+    <!-- 主体开始 -->
+    <div id="main-content" class="container">
+        <div class="post-crumbs"><a href="{$cfg[weburl]}/"><i class="fa fa-home"></i></a><span class="delimiter">/</span><span class="current">搜索结果</span><span class="delimiter">/</span><span class="current">{$keyword}</span></div>
+        <div class="pure-g">
+            <div class="pure-u-2-3">
+                <div class="pure-u-container">
+                {block:global_search pagenum="8" maxcount="20000" infolen="170" dateformat="Y-m-d h:i" life="300"}
+                    <div class="post-list">
+                    {if:empty($qzdata['list'])}
+                    抱歉，未找到和 "<em>{$keyword}</em>"相关的内容。
+                    {else}
+                        <!--列表开始-->
+                        {loop:$qzdata[list] $qz}
+                        <div class="post-list-item box-shadow post-bulletin">
+                            <!--缩略图开始-->
+                            <a herf="{$qz[url]}" class="thumb"><img src={$cfg[siteurl]}/{$qz[thumb]} alt ="{$qz[title]}" width="180" height="140" /></a>
+                            <!--缩略图结束-->
+                            <!--tag开始-->
+                            <span class="category">
+                                {if:isset($qz['tag_arr'])}<i class="fa fa-tag"></i>
+                                {loop:$qz[tag_arr] $qz2}<a href="{$qz2[url]}">{$qz2[name]}</a> {/loop}
+                                {/if}
+                            </span>
+                            <!--tag结束-->
+                            <!--日期开始-->
+                            <span class="bulletin-date"><i class="fa fa-clock-o"></i>{$qz[date]}</span>
+                            <!--日期结束-->
+                            <div class="item-left">
+                            <!--标题+简介开始-->
+                                <div class="post-summary">
+                                    <h3><a href="{$qz[url]}" title="{$qz[title]}">{$qz[subtitle]}</a></h3>
+                                    <p class="entry">{$qz[description]}</p>
+                                </div>
+                            <!--标题+简介结束-->
+                            </div>
+                        </div>
+                        {/loop}
+                        <!--列表结束-->
+                        {/if}
+                    </div>
+                {/block}
+                </div>
+            </div>
+            {inc:sidebar.htm}
+        </div>
+    </div>
+    <!--主体结束-->
+<!--分页开始-->
+<div role="navigation" class="navigation container">
+    <div class="pagination clearfix box-shadow">
+        <span class="pages">共{$qzdata[total]}篇</span>{$qzdata[pages]}
+    </div>
+</div>
+<!--分页结束-->
+{inc:footer.htm}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {if:$_ENV[_tplname] == 'index.htm'}
+    <title>{$cfg[seo_title]} - {$cfg[webname]}</title>
+    <meta name="keywords" content="{$cfg[seo_keywords]}">
+    <meta name="description" content="{$cfg[seo_description]}">
+    {else}
+    <title>{$cfg[title]}</title>
+    <meta name="keywords" content="{$cfg[keywords]}">
+    <meta name="description" content="{$cfg[description]}">
+    {/if}
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <meta name="generator" content="QZLOG 2.0">
+    <link rel='stylesheet' href='/theme/{$cfg[theme]}/css/pure-nr-min.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='/theme/{$cfg[theme]}/css/typo.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='/theme/{$cfg[theme]}/css/style.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='/theme/{$cfg[theme]}/css/lightbox.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='/theme/{$cfg[theme]}/css/font-awesome.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='/theme/{$cfg[theme]}/css/widget.css' type='text/css' media='all' />
+</head>
+    <!--头部开始-->
+    <div id="header" class="container">
+        <!--<div class="top-nav">
+            <a href="javascript:;" class="signin-loader">登录</a>
+            <a href="javascript:;" class="signup-loader">注册</a>
+        </div>-->
+        <h1 class="logo">
+            <a href="/"><img src="/static/images/logo.png"></a>
+        </h1>
+        {block:nav life="3600"}
+        <div class="menu-main-menu-container box-noise box-shadow">
+            <ul class="menu">
+                {loop:$data $v}
+                <li class="menu-item menu-item-type-taxonomy {if:!empty($v[_data])}menu-item-object-category menu-item-has-children{else}menu-item-type-custom menu-item-object-custom{/if}"><a href="{$v[url]}" {if:$v[target] == 1}target="__blank"{/if}>{$v[name]}</a>
+                    {if:!empty($v[_data])}
+                    <ul class="sub-menu">
+                        {loop:$v[_data] $vv}
+                        <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="{$vv[url]}" {if:$vv[target] == 1}target="__blank"{/if}>{$vv[name]}</a></li>
+                        {/loop}
+                    </ul>
+                    {else}{/if}
+                </li>
+                 {/loop}
+            </ul>
+        </div>
+        {/block}
+    </div>
+ <!-- 头部结束 -->

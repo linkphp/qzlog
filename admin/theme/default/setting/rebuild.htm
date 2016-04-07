@@ -1,0 +1,38 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+    		<li><a href="index.php?u=setting-cache">清除缓存</a></li>
+    		<li class="active"><a href="index.php?u=setting-rebuild">重新统计</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">重要说明</div>
+<div class="help">
+    <ul>
+        <li>数据量大的情况下,如果不是数据不准确不建议此操作。</li>
+        <li>大数据网站尽量等访问量低的情况下执行，否则会很卡。</li>
+    </ul>
+</div>
+<div class="hd-title-header">重新统计</div>
+<form onsubmit="return hd_submit(this,'index.php?u=setting-rebuild','index.php?u=setting-rebuild')" class="hd-table-form">
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">将更新</th>
+            <td>
+                <table class="hd-table hd-table-list">
+                    <tr>
+                        <td><label>
+                            <input type="checkbox" name="category" value="1" checked='checked'/>
+                            分类内容数量 </label></td>
+                    </tr>
+                    <tr>
+                        <td><label>
+                            <input type="checkbox" name="zonghe" value="1" checked='checked'/>
+                            综合统计 </label></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="确定" class="hd-btn"/>
+</form>
+{inc:footer.htm}

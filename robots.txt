@@ -1,0 +1,6 @@
+#
+# robots.txt for QZLOG 2.0
+#
+User-agent: *
+Disallow: /linkphp/
+Disallow: /admin*

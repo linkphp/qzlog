@@ -1,0 +1,16 @@
+{inc:header.htm}
+<div class="hd-title-header">温馨提示</div>
+<div class="help">
+    <ul>
+        <li>
+            1. 开启伪静态与缓存功能性能也是很好的<br/>
+            2. 所以小并发网站可以不用生成静态<br/>
+            3. 请在虚拟主机后台或者WEB服务器配置文件里设置本站点默认主页 index.html/index.shtml 优先级高于 index.php
+        </li>
+    </ul>
+</div>
+<form action="index.php?u=html-index" method="post">
+<input type="hidden" name="index" value="index" />
+<input type="submit" class="hd-btn" value="生成首页" />
+</form>
+{inc:footer.htm}

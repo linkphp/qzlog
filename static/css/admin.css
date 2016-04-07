@@ -1,0 +1,217 @@
+body {
+  padding: 0px;
+}
+div#top-menu {
+  height: 50px;
+  background: url('../images/logo.png') #00a2ca no-repeat scroll 12px 1px;
+}
+div#top-menu .t-l-menu {
+  padding-left: 140px;
+}
+div#top-menu .t-l-menu a {
+  float: left;
+  color: #e2edf8;
+  display: block;
+  height: 50px;
+  font-size: 12px;
+  text-align: center;
+  width: 65px;
+  line-height: 50px;
+}
+div#top-menu .t-l-menu a:hover,
+div#top-menu .t-l-menu a.active {
+  color: #3071A9;
+  background: #e6e6e6;
+}
+div#top-menu .t-r-menu {
+  float: right;
+  font-size: 12px;
+  color: #e2edf8;
+  padding: 15px 20px 0px 0px;
+}
+div#top-menu .t-r-menu a {
+  color: #e2edf8;
+}
+div#top-menu .t-r-menu a:hover {
+  color: #FFFFFF;
+}
+div.main div#leftMenu {
+  width: 140px;
+  background: #DDDDDD;
+  z-index: 100;
+  position: fixed;
+  top: 50px;
+  left: 0px;
+  bottom: 31px;
+  overflow-y: auto;
+  border-right: 1px solid #DADADA;
+}
+div.main div#leftMenu div.leftMenuBlock {
+  display: none;
+}
+div.main div#leftMenu div.leftMenuBlock dl {
+  font-size: 12px;
+  margin-top: 10px;
+}
+div.main div#leftMenu div.leftMenuBlock dl dt {
+  border-bottom: 1px solid #CCC;
+  color: #3071A9;
+  font-size: 13px;
+  margin-bottom: 5px;
+  padding: 5px 15px 6px;
+}
+div.main div#leftMenu div.leftMenuBlock dl dd {
+  padding-left: 10px;
+}
+div.main div#leftMenu div.leftMenuBlock dl dd a {
+  color: #666;
+  display: block;
+  font-size: 12px;
+  padding: 5px 15px;
+}
+div.main div#leftMenu div.leftMenuBlock dl dd a:hover {
+  background: none repeat scroll 0% 0% #DDDDDD;
+}
+div.main div#leftMenu div.leftMenuBlock dl dd a.active {
+  background: none repeat scroll 0% 0% #00a2ca;
+  color: #e2edf8;
+}
+div.main div#content {
+  position: fixed;
+  left: 141px;
+  top: 50px;
+  right: 0px;
+  bottom: 31px;
+  background: #F3F3F3;
+}
+div.main div#content div#historyMenu {
+  height: 30px;
+  background: #ECECEC;
+  border-bottom: 1px solid #DDDDDD;
+  position: relative;
+  z-index: 10;
+}
+div.main div#content div#historyMenu div#historyMenuBox {
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  right: 20px;
+}
+div.main div#content div#historyMenu div#historyMenuBox div#historyMenuList {
+  width: 2000px;
+  position: absolute;
+  left: 0px;
+}
+div.main div#content div#historyMenu div#historyMenuBox div#historyMenuList ul li {
+  width: 125px;
+  height: 30px;
+  position: relative;
+  border-right: 1px solid #DDDDDD;
+  font-size: 12px;
+  float: left;
+}
+div.main div#content div#historyMenu div#historyMenuBox div#historyMenuList ul li a {
+  display: block;
+  float: left;
+  color: #AAA;
+  width: 125px;
+  text-align: center;
+  line-height: 30px;
+}
+div.main div#content div#historyMenu div#historyMenuBox div#historyMenuList ul li a.active,
+div.main div#content div#historyMenu div#historyMenuBox div#historyMenuList ul li a:hover {
+  background: #fafafa;
+}
+div.main div#content div#historyMenu div#historyMenuBox div#historyMenuList ul li span.close {
+  position: absolute;
+  top: 9px;
+  right: 5px;
+  background: #EFEFEF;
+  display: block;
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 10px;
+  border-radius: 2px;
+  color: #999;
+}
+div.main div#content div#historyMenu div#historyMenuBox div#historyMenuList ul li span.close:hover {
+  background: #03565E;
+  color: #DDDDDD;
+}
+div.main div#content div#historyMenu div#leftBtn,
+div.main div#content div#historyMenu div#rightBtn {
+  width: 18px;
+  height: 30px;
+  text-indent: -9999px;
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+}
+div.main div#content div#historyMenu div#leftBtn {
+  left: 0px;
+  background: url('../images/pic_s.png') #fafafa no-repeat scroll 5px 10px;
+  border-right: 1px solid #DDDDDD;
+}
+div.main div#content div#historyMenu div#leftBtn:hover {
+  background: url('../images/pic_s.png') #ececec no-repeat scroll 5px 10px;
+}
+div.main div#content div#historyMenu div#rightBtn {
+  right: 0px;
+  border-left: 1px solid #DDDDDD;
+  background: url('../images/pic_s.png') #fafafa no-repeat scroll 5px -25px;
+}
+div.main div#content div#historyMenu div#rightBtn:hover {
+  background: url('../images/pic_s.png') #ececec no-repeat scroll 5px -25px;
+}
+div.main div#content div.show {
+  position: fixed;
+  top: 75px;
+  right: 0px;
+  left: 140px;
+  bottom: 31px;
+}
+div.main div#content div.show iframe {
+  border: none;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+div#quickMenu {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 30px;
+  background: #EAEAEA;
+  border-top: 1px solid #D8D8D8;
+  font-size: 12px;
+  line-height: 30px;
+}
+div#quickMenu div.set {
+  width: 380px;
+  float: left;
+  text-align: center;
+}
+div#quickMenu div.set a {
+  font-size: 14px;
+  color: #0A5AA1;
+  font-weight: bold;
+}
+div#quickMenu div.line {
+  border-right: solid 1px #999;
+  display: inline-block;
+  height: 15px;
+  float: left;
+  margin: 10px 15px 0px 0px;
+}
+div#quickMenu div.menu-list {
+  float: left;
+}
+div#quickMenu div.menu-list a {
+  color: #3C3C3C;
+  float: left;
+  padding: 0px 15px;
+}

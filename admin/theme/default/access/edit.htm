@@ -1,0 +1,59 @@
+{inc:header.htm}
+<div class="hd-title-header">菜单信息</div>
+	<form onsubmit="return hd_submit(this,'index.php?u=access-edit','index.php?u=access-node')">
+		<table class="hd-table hd-table-form hd-form">
+			<tr class="hd-w100">
+				<th class="hd-w100">名字</th>
+				<td><input type="text" name="name" value="{$node[name]}" class="hd-w200" required=""/></td>
+			</tr>
+			<tr>
+				<th>上级</th>
+				<td>
+					<select name="pid" id="pid" class="hd-w200">
+						<option value="0" selected="selected">后台管理</option>
+						{$treenode}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>URL</th>
+				<td><input type="text" name="control" class="hd-w120" value="{$node[control]}"/> - <input type="text" name="function" class="hd-w120" value="{$node[function]}"/></td>
+			</tr>
+			<tr>
+				<th>状态</th>
+				<td>
+					<select name="status" class="hd-w200">
+						{if:$node[status] == 1}
+						<option value="1" selected>正常显示</option>
+						<option value="0">禁用隐藏</option>
+						{else}
+						<option value="1">正常显示</option>
+						<option value="0" selected>禁用隐藏</option>
+						{/if}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>类型</th>
+				<td>
+					<select name="menu" class="hd-w200">
+						{if:$node[menu] == 1}
+						<option value="1" selected>菜单</option>
+						<option value="0">权限节点</option>
+						{else}
+						<option value="1">菜单</option>
+						<option value="0" selected>权限节点</option>
+						{/if}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>排序:</th>
+				<td><input type="text" name="sort" class="hd-w20" value="{$node[sort]}"/></td>
+			</tr>
+		</table>
+		<input type="hidden" name="id" value="{$node[id]}"  />
+		<input type="submit" class="hd-btn" value="确定"/>
+	</form>
+</div>
+{inc:footer.htm}

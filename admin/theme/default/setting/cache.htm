@@ -1,0 +1,36 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+    		<li class="active"><a href="index.php?u=setting-cache">清除缓存</a></li>
+    		<li><a href="index.php?u=setting-rebuild">重新统计</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">清除缓存</div>
+<form onsubmit="return hd_submit(this,'index.php?u=setting-cache','index.php?u=setting-cache')" class="hd-table-form">
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">将更新</th>
+            <td>
+                <table class="hd-table hd-table-list">
+                    <tr>
+                        <td>
+                            <label><input type="checkbox" name="file" value="1" checked='checked'/> 模板等文件缓存 </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label><input type="checkbox" name="db" value="1" checked='checked'/> 数据库缓存 </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label><input type="checkbox" name="db_file" value="1" checked='checked'/> 文件数据缓存 </label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="确定" class="hd-btn"/>
+</form>
+{inc:footer.htm}

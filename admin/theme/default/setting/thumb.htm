@@ -1,0 +1,91 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+    		<li><a href="index.php?u=setting-index">系统设置</a></li>
+        <li><a href="index.php?u=setting-seo">SEO设置</a></li>
+        <li><a href="index.php?u=setting-plugin">插件开关</a></li>
+        <li class="active"><a href="index.php?u=setting-thumb">缩略水印</a></li>
+        <li><a href="index.php?u=setting-upload">上传设置</a></li>
+        <li><a href="index.php?u=setting-rewrite">伪静态设置</a></li>
+        <li><a href="index.php?u=setting-html">生成静态设置</a></li>
+    </ul>
+</div>
+<form onsubmit="return hd_submit(this,'index.php?u=setting-thumb','index.php?u=setting-thumb')">
+    <table class="hd-table hd-table-form hd-form">
+        <div class="hd-title-header">缩略图设置</div>
+			<tr>
+				<th class="hd-w100">文档缩略图</th>
+				<td><input name="thumb_article_w" type="number" min="0" value="{$thumb_article_w}" class="hd-w100"> X <input name="thumb_article_h" type="number" min="0"  value="{$thumb_article_h}" class="hd-w100"></td>
+			</tr>
+			<tr>
+				<th>裁剪方式</th>
+				<td>
+					{if:$thumb_type == 1}
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="1" checked="checked">补白</label> &nbsp; &nbsp;
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="2">居中</label> &nbsp; &nbsp;
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="3">上左</label> &nbsp; &nbsp;
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="4">按等比缩放</label>
+					{elseif:$thumb_type == 2}
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="1">补白</label> &nbsp; &nbsp;
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="2" checked="checked">居中</label> &nbsp; &nbsp;
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="3">上左</label> &nbsp; &nbsp;
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="4">按等比缩放</label>
+					{elseif:$thumb_type == 3}
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="1">补白</label> &nbsp; &nbsp;
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="2">居中</label> &nbsp; &nbsp;
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="3" checked="checked">上左</label> &nbsp; &nbsp;
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="4">按等比缩放</label>
+					{else}
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="1">补白</label> &nbsp; &nbsp;
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="2">居中</label> &nbsp; &nbsp;
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="3">上左</label> &nbsp; &nbsp;
+					<label><input class="hd-w20" name="thumb_type" type="radio" value="4" checked="checked">按等比缩放</label>
+					{/if}
+				</td>
+			</tr>
+			<tr>
+				<th>缩略图质量</th>
+				<td><input name="thumb_quality" type="number" min="0" value="{$thumb_quality}" class="hd-w100"></td>
+			</tr>
+	</table>
+
+		<div class="hd-title-header">水印设置</div>
+		<table class="hd-table hd-table-form hd-form">
+			<tr>
+				<th class="hd-w100">水印的位置</th>
+				<td>
+					<table class="hd-w300">
+						<tr class="hd-w30">
+							<td colspan="2"><input class="hd-w30" type="radio" name="watermark_pos" value="0" {if:$watermark_pos == 0}checked=""{else}{/if}> 关闭</td>
+							<td><input class="hd-w30" type="radio" name="watermark_pos" value="10" {if:$watermark_pos == 10}checked=""{else}{/if}> 随机</td>
+						</tr>
+						<tr>
+							<td><input class="hd-w30" type="radio" name="watermark_pos" value="1" {if:$watermark_pos == 1}checked=""{else}{/if}> 左上</td>
+							<td><input class="hd-w30" type="radio" name="watermark_pos" value="2" {if:$watermark_pos == 2}checked=""{else}{/if}> 上中</td>
+							<td><input class="hd-w30" type="radio" name="watermark_pos" value="3" {if:$watermark_pos == 3}checked=""{else}{/if}> 上右</td>
+						</tr>
+						<tr>
+							<td><input class="hd-w30" type="radio" name="watermark_pos" value="4" {if:$watermark_pos == 4}checked=""{else}{/if}> 中左</td>
+							<td><input class="hd-w30" type="radio" name="watermark_pos" value="5" {if:$watermark_pos == 5}checked=""{else}{/if}> 中间</td>
+							<td><input class="hd-w30" type="radio" name="watermark_pos" value="6" {if:$watermark_pos == 6}checked=""{else}{/if}> 中右</td>
+						</tr>
+						<tr>
+							<td><input class="hd-w30" type="radio" name="watermark_pos" value="7" {if:$watermark_pos == 7}checked=""{else}{/if}> 下左</td>
+							<td><input class="hd-w30" type="radio" name="watermark_pos" value="8" {if:$watermark_pos == 8}checked=""{else}{/if}> 下中</td>
+							<td><input class="hd-w30" type="radio" name="watermark_pos" value="9" {if:$watermark_pos == 9}checked=""{else}{/if}> 下右</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<th>水印透明度</th>
+				<td><input name="watermark_pct" type="number" min="0" value="{$watermark_pct}" class="hd-w100"></td>
+			</tr>
+			<tr>
+				<th>水印的路径</th>
+				<td><input name="watermark_path" type="tetx" value="{$watermark_path}" class="hd-w300"></td>
+			</tr>
+		</table>
+	<input type="submit" value="确定" class="hd-btn" />
+</form>
+{inc:footer.htm}

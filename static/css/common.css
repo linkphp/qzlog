@@ -1,0 +1,44 @@
+body {
+    background: #F3F3F3;
+    padding: 10px;
+    font-size: 12px;
+    color: #555555;
+}
+
+iframe {
+    border: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+div.help {
+    height: auto;
+    overflow: hidden;
+    color: #666666;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+div.help ul li {
+    line-height: 1.8em;
+}
+
+span.star {
+    color: #F46F6D;
+    font-size: 12px;
+}
+
+span.notice {
+    display: block;
+    color: #999;
+    font-weight: normal;
+}
+
+div.search {
+    border: 1px solid #FFBE7A;
+    background: none repeat scroll 0 0 #FFFCED;
+    line-height: 20px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,96 @@
+{inc:header.htm}
+<body class="single single-special postid-29959  pace-done">
+	<div class="container">
+		<div class="post-crumbs"><a href="{$cfg[weburl]}/"><i class="fa fa-home"></i></a>{loop:$qz_var[place] $qz}<span class="delimiter">/</span><span class="current"><a href="{$qz[url]}">{$qz[name]}{/loop}</a></span></div>
+		<div class="pure-g">
+            <div class="pure-u-2-3">
+                <div class="pure-u-container">
+               	 {block:global_show show_prev_next="1"}
+                    <div class="page box-shadow" id="post-29959">
+                    	<div class="page-header">
+                    		<h1>{$qzdata[title]}</h1>
+                    		<div class="page-info">
+                    			<span><i class="fa fa-list-alt"></i>{$qz_var[name]}</span>
+					<span><i class="fa fa-clock-o"></i>{$qzdata[date]}</span>
+					<span><i class="fa fa-user"></i>{$qzdata[editor_username]}</span>
+					<span><i class="fa fa-eye"></i>{$qzdata[click]}</span>
+                    		</div>
+                    	</div>
+                    	<!--内容开始-->
+                    	<div class="article typo">
+                    		{$qzdata[content]}
+                    	</div>
+                    	<!--内容结束-->
+                    	<!--图集开始-->
+                    	{if:isset($qzdata[images])}
+	                    	<br/>图集：
+                			{loop:$qzdata[images] $qz}
+                			<img src="{$cfg[siteurl]}/upload/{$qz[filepath]}" alt="{$qzdata[title]}" width="60" height="60" onmouseover="view_image(this)"/>
+                			{/loop}<br/>
+                		{/if}
+                    	<!--图集结束-->
+                    	<!--TAG开始-->
+            			{if:isset($qzdata['tag_arr'])}
+            				<br/>TAG：{loop:$qzdata[tag_arr] $qz} <a href="{$qz[url]}">{$qz[name]}</a>{/loop}<br/>
+            			{/if}
+            			<!--TAG结束-->
+            			<!--上下篇开始-->
+            			{if:isset($qzdata[prev][url]) || isset($qzdata[next][url])}
+            				上一篇：{if:isset($qzdata[prev][url])}<a href="{$qzdata[prev][url]}">{$qzdata[prev][title]}</a>{else}没有了{/if}<br/>
+            				下一篇：{if:isset($qzdata[next][url])}<a href="{$qzdata[next][url]}">{$qzdata[next][title]}</a>{else}没有了{/if}
+            			{/if}
+            			<!--上下篇结束-->
+            			<!--作者信息开始-->
+                    	<div class="author-info">
+                    		<!--<div class="author-pic">
+    					       <img alt="" src="" class="avatar avatar-64 photo" height="64" width="64">
+    				        </div>-->
+            				<div class="author-text">该文档由 <b>{$qzdata[editor_username]}</b> 发布，时间 {$qzdata[date]}.<br>转载请注明 <a href="{$qzdata[url]}" rel="bookmark" title="{$qzdata[title]}">{$qzdata[title]}</a>（来源于{if:!empty($qzdata['source'])}{$qzdata[source]}{else}QZLOG{/if}）
+            				</div>
+                    	</div>
+                    	<!--作者信息结束-->
+                    </div>
+                {/block}
+                    <!--评论开始-->
+                    <div class="comment-template box-shadow">
+                    	<div class="title" id="comments">
+            			    <h3>评论</h3>
+            			</div>
+            			<div id="respond" class="no_webshot">
+            			    <div class="comment-signarea">
+            			        <!-- 友言评论JS BEGIN -->
+            				<div id="uyan_frame"></div>
+            				<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js"></script>
+            				<!-- 友言评论JS END -->
+            			    </div>
+            			</div>
+                    </div>
+                    <!--评论结束-->
+                </div>
+            </div>
+            {inc:sidebar.htm}
+        </div>
+	</div>
+<script>
+    //预览图片
+    function view_image(obj){
+        var src = $(obj).attr('src');
+        var viewImg = $('#view_img');
+        //删除预览图
+        if (viewImg.length >= 1){
+            viewImg.remove();
+        }
+        //鼠标移除时删除预览图
+        $(obj).mouseout(function (){
+            $('#view_img').remove();
+        })
+        if (src){
+            var offset = $(obj).offset();
+            var _left = 100 + offset.left + "px";
+            var _top = offset.top - 50 + "px";
+            var html = '<img src="' + src + '" style="border:solid 5px #dcdcdc;position:absolute;z-index:1000;width:300px;height:200px;left:' + _left + ';top:' + _top + ';" id="view_img"/>';
+            $('body').append(html);
+        }
+    }
+</script>
+{inc:footer.htm}

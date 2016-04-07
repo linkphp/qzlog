@@ -1,0 +1,40 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li><a href="index.php?u=member-index">用户列表</a></li>
+        <li class="active"><a href="index.php?u=member-add">添加用户</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">添加用户</div>
+<form onsubmit="return hd_submit(this,'index.php?u=member-add','index.php?u=member-index')">
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">用户名 <span class="star">*</span></th>
+            <td><input type="text" class="hd-w200" name="username" required="" /></td>
+        </tr>
+        <tr>
+            <th class="hd-w100">EMAIL <span class="star">*</span></th>
+            <td><input type="text" class="hd-w200" name="email" required="" /></td>
+        </tr>
+        <tr>
+            <th>所属角色</th>
+            <td>
+                <select name="role_id" class="hd-w200">
+                    {loop:$roleList $v}
+                    <option value="{$v[role_id]}">{$v[role_name]}</option>
+                    {/loop}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th class="hd-w100">密码 <span class="star">*</span></th>
+            <td><input type="password" class="hd-w200" name="password" required=""/></td>
+        </tr>
+        <tr>
+            <th class="hd-w100">确认密码 <span class="star">*</span></th>
+            <td><input type="password" class="hd-w200" name="password_again" required="" /></td>
+        </tr>
+    </table>
+		<button class="hd-btn" type="submit">确定</button>
+</form>
+{inc:footer.htm}

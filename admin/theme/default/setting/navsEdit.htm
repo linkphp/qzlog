@@ -1,0 +1,55 @@
+{inc:header.htm}
+<div class="hd-title-header">编辑导航</div>
+<form onsubmit="return hd_submit(this,'index.php?u=setting-navsEdit','index.php?u=setting-navs')">
+    <input type="hidden" name="id" value="{$navInfo[id]}"/>
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">名称</th>
+            <td><input type="text" name="name" class="hd-w200" value="{$navInfo[name]}"/></td>
+        </tr>
+        <tr>
+            <th class="hd-w100">URL</th>
+            <td><input name="url" type="text" class="hd-w300" value="{$navInfo[url]}"/></td>
+        </tr>
+        <tr>
+            <th>所属上级:</th>
+            <td>
+                <select name="pid" class="hd-w200">
+                    <option value="0">一级导航</option>
+                    {loop:$list $v}
+                    {if:$navInfo[pid] == $v[id]}
+                    <option value="{$v[id]}" selected="selected">{$v[_name]}</option>
+                    {else}
+                    <option value="{$v[id]}">{$v[_name]}</option>
+                    {/if}
+                    {/loop}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>是否显示</th>
+            <td>
+                <select name="status" class="hd-w200">
+                    {if:$navInfo[status] == 1}
+                    <option value='1' selected>显示</option>
+                    <option value='0'>不显示</option>
+                    {else}
+                    <option value='1'>显示</option>
+                    <option value='0' selected>不显示</option>
+                    {/if}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>排序</th>
+            <td><input type="text" name="sort" class="hd-w50" value="{$navInfo[sort]}"/></td>
+        </tr>
+        <tr>
+            <th>新窗口打开</th>
+            <td><input name="target" type="checkbox" {if:$navInfo[target] == 1} checked="checked"{/if}></td>
+        </tr>
+    </table>
+
+    <input type="submit" class="hd-btn" value="确定" />
+</form>
+{inc:footer.htm}

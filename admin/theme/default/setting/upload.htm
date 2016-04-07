@@ -1,0 +1,29 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+    		<li><a href="index.php?u=setting-index">系统设置</a></li>
+        <li><a href="index.php?u=setting-seo">SEO设置</a></li>
+        <li><a href="index.php?u=setting-plugin">插件开关</a></li>
+        <li><a href="index.php?u=setting-thumb">缩略水印</a></li>
+        <li class="active"><a href="index.php?u=setting-upload">上传设置</a></li>
+        <li><a href="index.php?u=setting-rewrite">伪静态设置</a></li>
+        <li><a href="index.php?u=setting-html">生成静态设置</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">上传设置</div>
+<form onsubmit="return hd_submit(this,'index.php?u=setting-upload','index.php?u=setting-upload')">
+    <table class="hd-table hd-table-form hd-form">
+		<tr>
+			<th>上传图片</th>
+			<td> 允许类型 <input name="up_img_ext" type="text" value="{$up_img_ext}" class="hd-w300" /> 最大限制 <input name="up_img_max_size" type="number" step="1" min="0" value="{$up_img_max_size}" class="hd-w100">KB</td>
+		</tr>
+		<tr>
+			<th>上传附件</th>
+			<td>允许类型 <input name="up_file_ext" type="text" value="{$up_file_ext}" class="hd-w300" /> 最大限制 <input name="up_file_max_size" type="number" step="1" min="0" value="{$up_file_max_size}" class="hd-w100">KB</td>
+		</tr>
+    </table>
+	<input type="submit" value="确定" class="hd-btn" />
+</form>
+{inc:footer.htm}
+
+

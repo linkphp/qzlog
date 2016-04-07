@@ -1,0 +1,60 @@
+{inc:header.htm}
+    <div class="hd-title-header">字段设计</div>
+    <div class="help">
+        <ul>
+            <li>点击按钮建立相应字段</li>
+        </ul>
+    </div>
+    <button onclick="$.field.adddesign('text',{$projectid})" class="hd-btn hd-btn-sm hd-btn-default">单行文本(input)</button>
+    <button onclick="$.field.adddesign('file',{$projectid})" class="hd-btn hd-btn-sm hd-btn-default">附件上传(file)</button>
+    <button onclick="$.field.adddesign('image',{$projectid})" class="hd-btn hd-btn-sm hd-btn-default">图片上传(image)</button>
+    <button onclick="$.field.adddesign('textarea',{$projectid})" class="hd-btn hd-btn-sm hd-btn-default">多行文本(textarea)</button>
+	<table class="hd-table hd-table-list hd-form">
+		<thead>
+			<tr>
+				<td>字段名称</td>
+				<td>变量名</td>
+				<td>类型</td>
+				<td>默认值</td>
+				<td>操作</td>
+			</tr>
+		</thead>
+		<tbody>
+  			{loop:$list $v}
+			<tr>
+				<td>{$v['setting']['fieldname']}</td>
+				<td>{$v['setting']['var']}</td>
+				<td>{$v['type']}</td>
+				<td>{$v['setting']['defaultvalue']}</td>
+				<td>
+					<a href="javascript:;" data-field="{$v[field]}" data-editor="{$v['setting']['editor']}" onclick="$.field.editdesign(this,{$v['fieldid']},{$projectid})" class="editfield">编辑</a> |
+					<a href="javascript:;" onclick="$.field.deldesign({$v[fieldid]},{$projectid})" class="delfield">删除</a>
+				</td>
+			</tr>
+			{/loop}
+		</tbody>
+	</table>
+</div>
+<script type="text/template" id="temp">
+	<form id="adddesign_form">
+        <input type="hidden" name="field" value="{{field}}" />
+        <input type="hidden" name="projectid" value="{{projectid}}" />
+        <table class="hd-form hd-table hd-table-form">
+            <tbody>
+            <tr>
+                <td class="hd-w80">字段名称：</td>
+                <td><input type="text" name="fieldname" value="{{fieldname}}"/></td>
+            </tr>
+            <tr>
+                <td>变量名：</d>
+                <td><input type="text" name="var" value="{{var}}"/></td>
+            </tr>
+            <tr>
+                <td>默认值：</td>
+                <td><input type="text" name="defaultvalue" value="{{defaultvalue}}"/></td>
+            </tr>
+            </tbody>
+        </table>
+	</form>
+</script>
+{inc:footer.htm}

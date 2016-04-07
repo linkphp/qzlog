@@ -1,0 +1,17 @@
+{inc:header.htm}
+<div class="hd-title-header">编辑标签</div>
+<form onsubmit="return hd_submit(this,'index.php?u=tag-edit','index.php?u=tag-index')">
+    <input type="hidden" name='tagid' value="{$tag[tagid]}" />
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">标签名 <span class="star">*</span></th>
+            <td><input type="text" name="name" class="hd-w300" value="{$tag[name]}" required=""/></td>
+        </tr>
+        <tr>
+            <th class="hd-w100">描述</th>
+            <td><textarea name="content" class="hd-w400 hd-h100">{$tag[content]}</textarea></td>
+        </tr>
+    </table>
+    <button class="hd-btn" type="submit">确定</button>
+</form>
+{inc:footer.htm}

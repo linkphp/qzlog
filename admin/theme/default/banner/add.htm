@@ -1,0 +1,41 @@
+{inc:header.htm}
+<style type="text/css">
+	.ke-container{
+		height: 0px;
+	}
+</style>
+<div class="hd-menu-list">
+    <ul>
+        <li><a href="index.php?u=banner-index">Banner列表</a></li>
+        <li class="active"><a href="index.php?u=banner-add">添加Banner</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">添加幻灯片</div>
+<form onsubmit="return hd_submit(this,'index.php?u=banner-add','index.php?u=banner-index')">
+	<table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">标题 <span class="star">*</span></th>
+            <td><input type="text" name="name" class="hd-w300" required=""/></td>
+        </tr>
+        <tr>
+            <th class="hd-w100">URL <span class="star">*</span></th>
+            <td>
+            	<input type="text" name="url" class="hd-w300" required=""/>
+            	<span class="hd-validate-notice">如：http://www.qzlog.com</span>
+            </td>
+        </tr>
+        <tr>
+            <th class="hd-w100">图片地址 <span class="star">*</span></th>
+            <td>
+	            <input type="text" id="picurlurl" name="picurl" class="hd-w300" required=""/>
+				<input class="hd-btn hd-btn-xm" type="button" value="选择图片" onclick="createdImage('picurl');">
+            	<span class="hd-validate-notice">上传或者自己填写图片的绝对地址</span>
+            </td>
+        </tr>
+
+	</table>
+	<input type="submit" class="hd-btn" value="确定" />
+</form>
+<input type="hidden" class="editor" />
+<script type="text/javascript" src="{$SITE_URL}static/js/content.js"></script>
+{inc:footer.htm}

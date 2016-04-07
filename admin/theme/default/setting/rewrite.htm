@@ -1,0 +1,55 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+    		<li><a href="index.php?u=setting-index">系统设置</a></li>
+        <li><a href="index.php?u=setting-seo">SEO设置</a></li>
+        <li><a href="index.php?u=setting-plugin">插件开关</a></li>
+        <li><a href="index.php?u=setting-thumb">缩略水印</a></li>
+        <li><a href="index.php?u=setting-upload">上传设置</a></li>
+        <li class="active"><a href="index.php?u=setting-rewrite">伪静态设置</a></li>
+        <li><a href="index.php?u=setting-html">生成静态设置</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">伪静态设置</div>
+<form onsubmit="return hd_submit(this,'index.php?u=setting-rewrite','index.php?u=setting-rewrite')">
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w150">伪静态开关</th>
+            <td>
+            		{if:$parseurl == 1}
+                <input name="parseurl" type="radio" value="0"> 关闭&nbsp; &nbsp;
+                <input name="parseurl" type="radio" value="1" checked="checked"> 开启
+                {else}
+                <input name="parseurl" type="radio" value="0" checked="checked"> 关闭&nbsp; &nbsp;
+                <input name="parseurl" type="radio" value="1"> 开启
+                {/if}
+            </td>
+        </tr>
+        <tr>
+            <th>伪静态后缀</th>
+            <td>
+                <input type="text" name="url_suffix" value="{$url_suffix}" class="hd-w200"/>
+            </td>
+        </tr>
+        <tr>
+            <th>分类URL伪静态前缀</th>
+            <td>
+                <input type="text" name="link_category_page_pre" value="{$link_category_page_pre}" class="hd-w200"/>
+            </td>
+        </tr>
+        <tr>
+            <th>TAG伪静态前缀</th>
+            <td>
+                <input type="text" name="link_tag_pre" value="{$link_tag_pre}" class="hd-w200"/>
+            </td>
+        </tr>
+        <tr>
+            <th>搜索结果页伪静态前缀</th>
+            <td>
+                <input type="text" name="link_search_pre" value="{$link_search_pre}" class="hd-w200"/>
+            </td>
+        </tr>
+    </table>
+	<input type="submit" value="确定" class="hd-btn" />
+</form>
+{inc:footer.htm}

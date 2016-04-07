@@ -1,0 +1,70 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li class="active"><a href="index.php?u=setting-navs">导航管理</a></li>
+        <li><a href="index.php?u=setting-navsAdd">添加导航</a></li>
+    </ul>
+</div>
+<form onsubmit="return hd_submit(this,'index.php?setting-navsSort','index.php?setting-navs')">
+<table class="hd-table hd-table-list hd-form">
+	<thead>
+      <tr>
+		<td>排序</td>
+		<td>导航名</td>
+      	<td>链接</td>
+      	<td>类型</td>
+      	<td>新窗口?</td>
+		<td>状态</td>
+        <td>操作</td>
+      </tr>
+	</thead>
+	<tbody>
+	{if:!empty($list)}
+  	{loop:$list $v}
+    <tr>
+		<td class="hd-w50"><input type="text" name="list_sort[{$v[id]}]" class="hd-w50" value="{$v[sort]}"/></td>
+      	<td>{$v[_name]}</td>
+      	<td>{if:isset($v[attribute]) && $v[attribute] == 3}{$v[url]}{else}{$v[url]}{/if}</td>
+      	<td class="hd-w50">{if:isset($v[cid]) && $v[cid] != 0}栏目{else}链接{/if}</td>
+      	<td class="hd-w50">{if:isset($v[target]) && $v[target] == 1}新窗口{else}本窗口{/if}</td>
+		<td class="hd-w50">{if:$v[status] == 1}显示{else}<b>不显示</b>{/if}</td>
+        <td class="hd-w100">
+        		<a href="javascript:del({$v[id]});" class="delete">删除</a>
+			{if:isset($v[cid]) && $v[cid] != 0}{else} | <a href="index.php?u=setting-navsEdit-id-{$v[id]}">编辑</a>{/if}
+
+		</td>
+	</tr>
+	{/loop}
+	{else}
+	<tr><td colspan="8"><b>暂无!</b></td></tr>
+	{/if}
+	</tbody>
+</table>
+<input type="submit" class="hd-btn" value="排序" />
+</form>
+
+<script>
+	//删除
+	function del(id){
+		hd_modal({
+			width: 400,//宽度
+			height: 200,//高度
+			title: '提示',//标题
+			content: '确定删除吗',//提示信息
+			button: true,//显示按钮
+			button_success: "确定",//确定按钮文字
+			button_cancel: "关闭",//关闭按钮文字
+			timeout: 0,//自动关闭时间 0：不自动关闭
+			shade: true,//背景遮罩
+			shadeOpacity: 0.1,//背景透明度
+			success: function () {//点击确定后的事件
+				var jampUrl = window.location.href;
+				hd_ajax('index.php?u=setting-navsDel', {id:id},jampUrl);
+			},
+			cancel: function () {//点击关闭后的事件
+
+			}
+		});
+	}
+</script>
+{inc:footer.htm}

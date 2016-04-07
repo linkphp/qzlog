@@ -1,0 +1,72 @@
+{inc:header.htm}
+<link rel="stylesheet" href="{$SITE_URL}static/css/admin.css"/>
+<script src="{$SITE_URL}static/js/js.js"></script>
+<body>
+
+<div id="top-menu">
+    <div class="t-l-menu">
+        {loop:$menuList $v}
+        <a href="javascript:" onclick="topMenu(this,'{$v[id]}')">{$v[name]}</a>
+        {/loop}
+    </div>
+    <div class="t-r-menu">
+        您好：{$_cookie[1]}, 感谢使用轻舟CMS内容管理系统。| <a href="index.php?u=login-logout" target="_self">注销</a> | {hook:admin_topnav_right.htm}<a href="{$SITE_URL}" target="_blank">前台首页</a>
+    </div>
+</div>
+<!--内容区Start-->
+<div class="main">
+    <!--左侧菜单Start-->
+    <div id="leftMenu">
+        {loop:$menuList $v}
+        <div id="{$v[id]}" class="leftMenuBlock">
+            {loop:$v[_data] $vv}
+            <dl>
+                <dt>{$vv[name]}</dt>
+                {loop:$vv[_data] $vvv}
+                    <dd>
+                    {if:isset($vvv[control])}
+                        <a href="javascript:;" target="frame" onclick="runAction(this,'index.php?u={$vvv[control]}-{$vvv[function]}','{$vvv[id]}')">{$vvv[name]}</a>
+                    {else}
+                        <a href="javascript:;" target="frame" onclick="runAction(this,'{$vvv[url]}','{$vvv[id]}')">{$vvv[name]}</a>
+                     {/if}
+                    </dd>
+                {/loop}
+            </dl>
+            {/loop}
+        </div>
+        {/loop}
+    </div>
+    <!--左侧菜单End-->
+    <!--右侧区域Start-->
+    <div id="content">
+        <!--快速导航Start-->
+        <div id="historyMenu">
+            <div id="leftBtn">向左按钮</div>
+            <div id="historyMenuBox">
+                <div id="historyMenuList">
+                    <ul>
+
+                    </ul>
+                </div>
+            </div>
+            <div id="rightBtn">向右按钮</div>
+        </div>
+        <!--快速导航End-->
+        <div class="show">
+            <iframe src="" name="frame" id="frame" frameborder="0"></iframe>
+        </div>
+    </div>
+    <!--右侧区域End-->
+</div>
+<!--内容区End-->
+<!--底部快速导航Start-->
+<div id="quickMenu">
+    <div class="set">
+        Copyright © 2015-{php}echo date('Y',time());{/php} <a href="http://www.qzlog.com" title="轻舟(QZLOG)CMS PHP开源内容管理系统" target="__blank">QZLOG</a> ® Inc. All Rights Reserved
+    </div>
+    <div class="line"></div>
+    <div class="menu-list"> {hook:admin_footer_right.htm}
+    </div>
+</div>
+<!--底部快速导航End-->
+{inc:footer.htm}

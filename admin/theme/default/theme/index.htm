@@ -1,0 +1,158 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+    		<li class="active"><a href="index.php?u=theme-index">本地模板</a></li>
+    		<li><a href="http://www.qzlog.com/bbs/forum-45-1.html" target="_self">在线模板</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">友情提示</div>
+<div class="help">
+    <ul>
+        <li>
+            1. QZLOG官网不断更新免费优质模板 <a href="http://www.qzlog.com/bbs/forum-45-1.html" class="action" target="_blank">立刻获取</a>
+        </li>
+        <li>
+            2. 非QZLOG官网提供的模板，可能存在恶意木马程序
+        </li>
+        <li>
+            3. 你需要了解QZLOG标签，才可以灵活编辑模板，请查阅模板标签手册。
+        </li>
+    </ul>
+</div>
+{if:!$themes}<div class="hd-title-header">暂无模板</div>
+{else}
+<div class="hd-title-header">当前模板</div>
+<div class="tpl-list">
+    <ul>
+        {loop:$themes $v $k}
+        {php} $enable = ($k == $theme); {/php}
+        <li class="active {if:$enable}current{else}{/if}">
+            <img src="{$SITE_URL}theme/{$k}/show.jpg" width="260"/>
+            <h2>{$v[name]}</h2>
+            <p>作者: <a target="_blank" href="{$v[authorurl]}">{$v[author]}</a></p>
+            <p>版本: {$v[version]}</p>
+            <p>更新于: {$v[update]}</p>
+            <p>目录: {$k}</p>
+            <p>说明: {$v[brief]}</p>
+            <div class="link">
+                {if:$enable}
+                <button class="hd-btn hd-btn-default hd-btn-sm">使用中...</button>
+                {else}
+                <a href="javascript:ajax_enable('{$k}');" class="hd-btn hd-btn-primary hd-btn-sm">启用</a>
+                <a href="javascript:ajax_delete('{$k}');" class="hd-btn hd-btn-danger hd-btn-sm delete">删除</a>
+                {/if}
+            </div>
+        </li>
+        {/loop}
+        {/if}
+    </ul>
+</div>
+
+<style type="text/css">
+    div.tpl-list ul li {
+        float: left;
+        margin: 10px;
+        height: auto;
+        overflow: hidden;
+        background: #efefef;
+        border: solid 5px #DDDDDD;
+        padding-bottom: 2px;
+        position: relative;
+    }
+    div.tpl-list ul li.current {
+        border: solid 5px #09AEEF;
+        background: #09AEEF;
+        color: #ffffff;
+    }
+    div.tpl-list ul li.current a, div.tpl-list ul li.current h2 {
+        color: #ffffff;
+    }
+    div.tpl-list ul li.current img {
+        opacity: 1;
+    }
+    div.tpl-list ul li img {
+        width: 230px;
+        height: 260px;
+        border-bottom: solid 2px #DCDCDC;
+        margin-bottom: 6px;
+        opacity: 0.5;
+    }
+    div.tpl-list ul li h4 {
+        font-size: 18px;
+        padding-left: 10px;
+        color: #333333;
+        margin-bottom: 5px;
+    }
+    div.tpl-list ul li h2 {
+        font-size: 18px;
+        font-weight: bold;
+        padding-left: 10px;
+        margin-bottom: 5px;
+        color: #333;
+    }
+    div.tpl-list ul li p {
+        font-size: 12px;
+        padding-left: 10px;
+        margin: 0px;
+        width: 210px;
+    }
+    div.tpl-list ul li div.link {
+        padding-left: 10px;
+        margin-top: 6px;
+        padding-top: 5px;
+    }
+</style>
+
+<script>
+    //改变li样式
+    $(".tpl-list li").mouseover(function (){
+        $(this).addClass("active")
+    }).mouseout(function () {
+        $(this).removeClass("active")
+    })
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(e) {
+    	$('.del').click(function(e) {
+            var r = confirm('一旦删除将无法恢复，确定要删除吗？');
+    		if(r == true) {
+    			return true;
+    		} else {
+    			return false;
+    		}
+        });
+    });
+
+	//启用
+	function ajax_enable(theme){
+		var $jampUrl = window.location.href;
+		hd_ajax('index.php?u=theme-enable', {theme:theme},$jampUrl);
+	}
+
+	//删除
+	function ajax_delete(theme){
+		hd_modal({
+	        width: 400,//宽度
+	        height: 200,//高度
+	        title: '提示',//标题
+	        content: '确定删除吗',//提示信息
+	        button: true,//显示按钮
+	        button_success: "确定",//确定按钮文字
+	        button_cancel: "关闭",//关闭按钮文字
+	        timeout: 0,//自动关闭时间 0：不自动关闭
+	        shade: true,//背景遮罩
+	        shadeOpacity: 0.2,//背景透明度
+	        success: function () {//点击确定后的事件
+	            hd_ajax('index.php?u=theme-delete', {theme:theme},'index.php?u=theme-index');
+	        },
+	        cancel: function () {//点击关闭后的事件
+	            hd_alert({
+	                message: '取消删除',//显示内容
+	                timeout: 1//显示时间
+	            })
+	        }
+	    });
+	}
+</script>
+{inc:footer.htm}

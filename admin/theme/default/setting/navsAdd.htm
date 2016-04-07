@@ -1,0 +1,90 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li><a href="index.php?u=setting-navs">导航管理</a></li>
+        <li class="active"><a href="index.php?u=setting-navsAdd">添加导航</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">选择类型</div>
+<button onclick="set_type(0)" class="hd-btn hd-btn-xm">链接</button>
+<button onclick="set_type(1)" class="hd-btn hd-btn-xm">栏目</button>
+
+    <form onsubmit="return hd_submit(this,'index.php?u=setting-navsAdd','index.php?u=setting-navs')">
+    		<div id="category">
+    			<div class="hd-title-header">链接</div>
+	        <table class="hd-table hd-table-form hd-form">
+	            <tr>
+	                <th class="hd-w100">名称</th>
+	                <td><input type="text" name="name" class="hd-w200"/></td>
+	            </tr>
+	            <tr>
+	                <th class="hd-w100">URL</th>
+	                <td><input name="url" type="text" value="" class="hd-w300"/><span class="hd-validate-notice">要完整链接 带http:// 或者https://</span></td>
+	            </tr>
+	        </table>
+        </div>
+      	<div style="display: none;" id="outnav">
+      		<div class="hd-title-header">网站栏目</div>
+	 		<table class="hd-table hd-table-form hd-form">
+	 			<tr>
+                    <th class="hd-w100">选择栏目:</th>
+                    <td>
+                        <select name="cid" class="hd-w200">
+                        		<option value="0">==请选择==</option>
+                            {if:!empty($category)}
+                            {loop:$category $v}
+                            <option value="{$v[cid]}">{$v[_name]}</option>
+                            {/loop}
+                            {/if}
+                        </select>
+                    </td>
+                </tr>
+	        </table>
+        </div>
+        <table class="hd-table hd-table-form hd-form">
+        		<tr>
+                <th>上级</th>
+                <td>
+                    <select name="pid" class="hd-w200">
+                        <option value="0">一级导航</option>
+                        {loop:$list $v}
+                        <option value="{$v[id]}">{$v[_name]}</option>
+                        {/loop}
+                    </select>
+                    <span class="hd-validate-notice">目前只支持二级</span>
+                </td>
+            </tr>
+        		<tr>
+                <th>是否显示</th>
+                <td>
+                    <select name="status" class="hd-w200">
+                        <option value='1'>显示</option>
+                        <option value='0'>不显示</option>
+                    </select>
+                </td>
+            </tr>
+	        	<tr>
+	            <th>排序</th>
+	            <td><input type="text" name="sort" class="hd-w50" value="99"/></td>
+	        </tr>
+	        <tr>
+	            <th class="hd-w100">新窗口打开</th>
+	            <td><input name="target" type="checkbox" checked="checked" value="1"></td>
+	        </tr>
+        </table>
+        <input type="submit" class="hd-btn" value="确定" />
+    </form>
+
+<script type="text/javascript">
+	// 选择类型
+	function set_type(type){
+		if(type == 0){
+			$("#outnav").hide();
+			$("#category").show();
+		}else{
+			$("#category").hide();
+			$("#outnav").show();
+		}
+	}
+</script>
+{inc:footer.htm}

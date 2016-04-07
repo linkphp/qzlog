@@ -1,0 +1,87 @@
+{inc:header.htm}
+<div class="hd-title-header">编辑用户</div>
+<form onsubmit="return hd_submit(this,'index.php?u=member-edit','index.php?u=member-edit-uid-{$userInfo[uid]}')">
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">用户名</th>
+            <td>{$userInfo[username]}</td>
+        </tr>
+        <tr>
+            <th>所属角色</th>
+            <td>
+                <select name="role_id" class="hd-w200">
+                    {loop:$roleList $v}
+                    {if:$userInfo[role_id] == $v[role_id]}
+                    <option value="{$v[role_id]}" selected="selected">{$v[role_name]}</option>
+                    {else}
+                    <option value="{$v[role_id]}">{$v[role_name]}</option>
+                    {/if}
+                    {/loop}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th class="hd-w100">EMAIL</th>
+            <td><input type="text" class="hd-w200" name="email" value="{$userInfo[email]}" required="" /></td>
+        </tr>
+        <tr>
+            <th>新密码</th>
+            <td><input type="password" name="password" class="hd-w200"/> <span class="hd-validate-notice">不修改请留空</span></td>
+        </tr>
+        <tr>
+            <th>新密码确认</th>
+            <td><input type="password" name="password_again" class="hd-w200"/></td>
+        </tr>
+        <tr>
+            <th>注册时间</th>
+            <td>{php} echo date('Y-m-d H:i:s', $userInfo['regdate']);{/php}</td>
+        </tr>
+        <tr>
+            <th>注册IP</th>
+            <td>{$userInfo[regip]}</td>
+        </tr>
+        <tr>
+            <th>最后登录时间</th>
+            <td>
+                {if:$userInfo[last_login_time] == 0}
+                {else}
+                {php} echo date('Y-m-d H:i:s', $userInfo['last_login_time']);{/php}
+                {/if}
+            </td>
+        </tr>
+        <tr>
+            <th>最后登录ip</th>
+            <td>{$userInfo[last_login_ip]}</td>
+        </tr>
+        <tr>
+            <th>登陆次数</th>
+            <td>{$userInfo[login_count]}</td>
+        </tr>
+        <tr>
+            <th>昵称</th>
+            <td><input type="text" name="nickname" value="{$userInfo[nickname]}" class="hd-w200"/></td>
+        </tr>
+        <tr>
+            <th>备注</th>
+            <td><textarea name="remark" class="hd-w300 hd-h80">{$userInfo[remark]}</textarea></td>
+        </tr>
+        <tr>
+            <td>状态</td>
+            <td>
+                <select name="status">
+                    {if:$userInfo[status] == 1}
+                    <option value="1" selected>正常</option>
+                    <option value="0">禁用</option>
+                    {else}
+                    <option value="1">正常</option>
+                    <option value="0" selected>禁用</option>
+                    {/if}
+                </select>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" name="uid" value="{$userInfo[uid]}" />
+    <input type="hidden" name="salt" value="{$userInfo[salt]}" />
+    <input type="submit" class="hd-btn" value="确定" />
+</form>
+{inc:footer.htm}

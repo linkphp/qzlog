@@ -1,0 +1,71 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li><a href="index.php?u=access-node">菜单管理</a></li>
+        <li class="active"><a href="index.php?u=access-add">添加菜单/节点</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">菜单信息</div>
+	<form onsubmit="return hd_submit(this,'index.php?u=access-add','index.php?u=access-add')" >
+		<input type="hidden" name='FORM_HASH' value="{$C[FORM_HASH]}" />
+		<table class="hd-table hd-table-form hd-form">
+			<tr>
+				<th class="hd-w100">名字 <span class="star">*</span></th>
+				<td><input type="text" name="name" class="hd-w200" required=""/></td>
+			</tr>
+			<tr>
+				<th>所属上级 <span class="star">*</span></th>
+				<td>
+					<select name="pid" id="pid" class="hd-w200">
+						<option value="0" selected="selected">后台管理</option>
+						{$treenode}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>URL</th>
+				<td>
+                    <input type="text" name="control" class="hd-w100" />
+                    -
+                    <input type="text" name="function" class="hd-w100"/>
+                </td>
+			</tr>
+			<tr>
+				<th>状态</th>
+				<td>
+					<select name="status" class="hd-w200">
+						<option value="1">显示/正常</option>
+						<option value="0">隐藏/禁用</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>类型</th>
+				<td>
+					<select name="menu" class="hd-w200">
+						<option value="1">菜单</option>
+						<option value="0">权限节点</option>
+                    </select>
+				</td>
+			</tr>
+			<tr>
+				<th>排序</th>
+				<td><input type="text" name="sort" class="hd-w50"/><span class="hd-validate-notice">排序越小越靠前</span></td>
+			</tr>
+		</table>
+		<input type="submit" class="hd-btn" value="确定"/>
+	</form>
+
+	<table class="hd-table hd-table-form hd-table-list">
+	    <thead>
+	    <tr>
+	        <td>说明</td>
+	    </tr>
+	    </thead>
+	    <tbody>
+	    <tr><td>1、此功能给有能力的人二次开发使用，一般用户操作请谨慎，将影响后台菜单布局与权限控制.</td></tr>
+	    <tr><td>2、菜单和权限节点二合一，既可以添加菜单，又可以添加权限节点.</td></tr>
+	    <tr><td>3、例如:【会员列表】的URL为[index.php?u=user-index],那么以上依次为名字：“会员列表”、所属上级：“用户和权限”、URL：user-index </td></tr>
+	    </tbody>
+	</table>
+{inc:footer.htm}

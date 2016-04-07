@@ -1,0 +1,68 @@
+<script charset="utf-8" src="{$SITE_URL}static/kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="{$SITE_URL}static/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript">
+	KindEditor.ready(function(K){
+		//默认Kindeditor编辑框
+		var editor = K.create('.editor',{
+			cssPath : '{$SITE_URL}static/kindeditor/plugins/code/prettify.css',
+			uploadJson : 'index.php?u=upload-index',
+			autoHeightMode : true, //自动高度
+			afterCreate : function(){
+				this.loadPlugin('autoheight')
+			},
+			/*items : ['source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste','plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript','superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+        				'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image','flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak','anchor', 'link', 'unlink'],*/
+			imageUploadLimit: 50,
+			afterBlur:function(){
+			   this.sync();
+			},
+		});
+		//简单编辑框
+		var simple = K.create('.simple',{
+			uploadJson : 'index.php?u=upload-index',
+			resizeType : 1,
+	        allowPreviewEmoticons : false,
+	        allowImageUpload : true,
+	        items : ['source', '|','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline','removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist','insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+	        afterBlur:function(){
+	            this.sync();
+	        },
+		});
+		var attachment = K.create('.attachment',{
+			uploadJson : 'index.php?u=article-upload',
+	        allowImageUpload : true
+		});
+	//图集
+   	K('#J_selectImage').click(function(){
+		editor.loadPlugin('multiimage', function(){
+			editor.plugin.multiImageDialog({
+				clickFn : function(urlList){
+					var div = K('#J_imageView');
+					//div.html('');
+					K.each(urlList, function(i, data){
+						var siteurl = data.url;
+						div.append('<li><img src="'+ siteurl + '" width="50" height="50" onmouseover="view_image(this)"/><input type="hidden" value="' + data.id + '" name="gallery[]"/></li>');
+					});
+					editor.hideDialog();
+				}
+			});
+		});
+	});
+	//缩略图
+	K('#image1').click(function(){
+		editor.loadPlugin('image', function(){
+			editor.plugin.imageDialog({
+				imageUrl : K('#url1').val(),
+				clickFn : function(url, title, width, height, border, align){
+					var newurl = url;
+					K("#thumbImg").attr('src', newurl);
+					K("input[name='thumb']").val(newurl);
+					editor.hideDialog();
+				}
+			});
+		});
+	});
+});
+</script>
+</body>
+</html>

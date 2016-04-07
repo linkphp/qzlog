@@ -1,0 +1,90 @@
+{inc:header.htm}
+<style type="text/css">
+#homel{float:left;width:49%;min-height:400px}
+#homer{float:right;width:49%;min-height:400px}
+.sort{border:1px solid #00a2ca;margin-top:8px;border-radius:5px}
+.sort h1{line-height:27px;text-indent:8px;border-bottom:1px solid #9AC4DC;color:#00a2ca;border-radius:5px 5px 0 0;font-size:12px;}
+.sort .sc{min-height:192px;_height:192px;padding:5px 0}
+.sort .sc li{line-height:23px;padding:0 12px;border-bottom:1px dashed #00a2ca}
+.sort .sc li b{display:inline-block;width:60px}
+.sort .sc li a{margin-right:8px}
+.sort .sc li span{float:right}
+.sort .sc dd{float:left}
+.sort .sc dd a{display:block;width:64px;text-align:center;margin-left:8px;padding:3px;border-radius:5px;border:1px solid #fff}
+.sort .sc dd a:hover{border:1px solid #9AC4DC;background:#DEEFFB}
+.sort .sc dd a img{display:block;width:64px;margin:0 auto 4px;border-radius:5px}
+#browser{float:none}
+</style>
+	{hook:admin_index_info_top.htm}
+    <div id="homel">
+    		{hook:admin_index_info_left_top.htm}
+        <div class="sort" style="height: 145px;">
+            <h1>我的信息</h1>
+            <ul class="sc">
+                <li><b>登录帐号</b>{$_cookie[1]}</li>
+                <li><b>登陆次数</b>{$_cookie[4]}</li>
+                <li><b>最后登录</b>{php} echo date('Y-m-d h:i:s', $_cookie[5]);{/php}（{$_cookie[6]}）</li>
+                <li><b>注册时间</b>{php} echo date('Y-m-d h:i:s', $_cookie[7]);{/php}（{$_cookie[8]}）</li>
+            </ul>
+        </div>
+        <div class="sort">
+            <h1>配置信息</h1>
+            <ul class="sc">
+                <li><b>程序版本</b>QZLOG V{$C[version]} 简体中文 UTF8 版</li>
+                <li><b>操作系统</b>{$info[os]}</li>
+                <li><b>环境软件</b>{$info[software]}</li>
+                <li><b>PHP</b>{$info[php]}</li>
+                <li><b>链接方式</b>{$info[db_type]}</li>
+                <li><b>MySQL</b>{$info[mysql]}</li>
+                <li><b>上传限制</b>{$info[filesize]}</li>
+                <li><b>执行限制</b>{$info[exectime]}秒</li>
+                <li><b>安全模式</b>{$info[safe_mode]}</li>
+                <li><b>远程访问</b>{$info[url_fopen]}</li>
+                <li><b>其它支持</b>{$info[other]}</li>
+            </ul>
+        </div>
+        {hook:admin_index_info_left_bottom.htm}
+    </div>
+
+    <div id="homer">
+    		{hook:admin_index_info_right_top.htm}
+    		<div class="sort" >
+        		<h1>温馨提示</h1>
+        		<p style="padding: 10px">轻舟CMS(QZLOG)是一款PHP+MYSQL的轻量级内容管理系统，模板标签简单、可扩展性强，利于二次开发，系统永久开源免费，轻松建站的首选利器。</p>
+    		</div>
+        <div id="qzlog_news"></div>
+        <div class="sort" style="height: 205px;">
+            <h1>程序团队</h1>
+            <ul class="sc">
+                <li><b>贡献者</b><a href="http://www.qzlog.com/" target="_blank">Link</a>、<a href="http://www.caislblog.com/" target="_blank">Songlin.cai</a></li>
+                <li><b>QQ群</b>392045260</li>
+                <li><b>官网</b><a href="http://www.qzlog.com" target="__blank">http://www.qzlog.com</a></li>
+                <li><b>论坛</b><a href="http://www.qzlog.com/bbs" target="__blank">http://www.qzlog.com/bbs</a></li>
+                <li><b>手册</b><a href="http://doc.qzlog.com/" target="__blank">http://doc.qzlog.com</a></li>
+                <li><b>鸣谢</b><a href="http://www.likaiblog.cn/" target="_blank">李凯博客</a>、<a href="http://www.ludajie.com" target="_blank">撸大姐</a>、<a href="http://www.wajs.com" target="_blank">我爱健身</a>、<a href="http://www.twcms.com" target="_blank">TWCMS</a>、<a href="http://www.kongphp.com" target="_blank">KONGPHP</a>、<a href="http://www.hdphp.com" target="_blank">HDJS</a></li>
+                <li><b>说明*</b>以上开发者及网站排名不分先后.</li>
+            </ul>
+        </div>
+        {hook:admin_index_info_right_bottom.htm}
+    </div>
+    {hook:admin_index_info_bottom.htm}
+<script>
+    //官方动态
+    function jsonpCallback(data){
+    	var news = '';
+        news += '<div class="sort" style="height: 120px;">';
+        news += '<ul class="sc">';
+        news += '<h1>官方动态</h1>';
+        for(var o in data){
+            news += '<li>';
+            news += '<b style="width:90px">';
+            news += data[o].addtime;
+            news += '</b>';
+            news += '<a href="'+data[o].url+'" target="__blank">'+data[o].title+'</a>'
+            news += '</li>';
+        }
+        news += '</ul>';
+        $('#qzlog_news').append(news);
+    }
+</script>
+<script type="text/javascript" src="http://www.qzlog.com/api/index.php?index-get_news-callback-jsonpCallback"></script>

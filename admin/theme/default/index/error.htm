@@ -1,0 +1,71 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+    		<li class="active"><a href="index.php?u=setting-index">错误日志</a></li>
+    </ul>
+</div>
+<div class="hd-tab">
+    <ul class="hd-tab-menu">
+        <li lab="phperror" class="active">
+            <a> PHP错误日志 </a>
+        </li>
+        <li lab="phperror404">
+            <a>404错误日志 </a>
+        </li>
+    </ul>
+    <div class="hd-tab-content">
+        <div lab="phperror" class="hd-tab-area">
+			<a href="index.php?u=index-phpErrordel" class="hd-btn hd-btn-xm">清空PHP错误日志</a>
+			<div class="hd-title-header">注意</div>
+			<div class="help">
+			    <ul>
+			        <li>请给runtime/log/php_error.php 777可写权限</li>
+			        <li>如果不小心删除了runtime目录,请在runtime 目录下 新建一个log目标,并给与777可读写权限。log目录不会自动生成。</li>
+			    </ul>
+			</div>
+			<table class="table hd-table hd-table-list">
+			    <thead>
+			      <tr>
+			      	<th>ID</th>
+			        <th>错误日志内容</th>
+			      </tr>
+			  </thead>
+			  <tbody>
+			  	{loop:$phperror $k $v}
+			    <tr>
+			    		<td class="hd-w50">{$v}</td>
+			      	<td>{$k}</td>
+			    </tr>
+				{/loop}
+			  </tbody>
+			</table>
+        </div>
+        <div lab="phperror404" class="hd-tab-area">
+			<a href="index.php?u=index-notFoundErrordel" class="hd-btn hd-btn-xm">清空404错误日志</a>
+			<div class="hd-title-header">注意</div>
+			<div class="help">
+			    <ul>
+			        <li>请给runtime/log/php_error404.php 777可写权限</li>
+			        <li>如果不小心删除了runtime目录,请在runtime 目录下 新建一个log目标,并给与777可读写权限。log目录不会自动生成。</li>
+			    </ul>
+			</div>
+			<table class="table hd-table hd-table-list">
+			    <thead>
+			      <tr>
+			      	<th>ID</th>
+			        <th>错误日志内容</th>
+			      </tr>
+			  </thead>
+			  <tbody>
+			  	{loop:$phperror404 $k $v}
+			    <tr>
+			    		<td class="hd-w50">{$v}</td>
+			      	<td>{$k}</td>
+			    </tr>
+				{/loop}
+			  </tbody>
+			</table>
+        </div>
+    </div>
+</div>
+{inc:footer.htm}

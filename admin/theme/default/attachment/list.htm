@@ -1,0 +1,123 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li class="active"><a href="index.php?attachment-index">附件管理</a></li>
+        <li><a href="index.php?attachment-add">上传附件</a></li>
+    </ul>
+</div>
+
+<table class="hd-table hd-table-form hd-form">
+    <thead>
+    <tr>
+        <td class="hd-w30"><input type="checkbox" id="selectAllContent"/></td>
+        <td class="hd-w50">ID</td>
+        <td class="hd-w60">预览</td>
+        <td>文件名</td>
+        <td>路径</td>
+        <td class="hd-w50">扩展名</td>
+        <td class="hd-w50">大小</td>
+        <td class="hd-w140">上传时间</td>
+        <td class="hd-w30">uid</td>
+    </tr>
+    </thead>
+{if:!empty($list)}
+{loop:$list $v}
+    <tr>
+        <td>
+            <input type="checkbox" name="attachid[]" value="{$v[id]}" />
+        </td>
+        <td>{$v[id]}</td>
+        <td>
+            {if:$v[isimage] == 1}
+                <a href="{$SITE_URL}upload/{$v[filepath]}" target="__blank"><img src="{$SITE_URL}upload/{$v[filepath]}" class="hd-w40 hd-h30" onmouseover="view_image(this)"/></a>
+            {else}
+                <a href="{$SITE_URL}upload/{$v[filepath]}" target="__blank"><img src="{$SITE_URL}static/images/file.png" class="hd-w40 h30"/></a>
+            {/if}
+        </td>
+        <td>
+           {$v[filename]}
+        </td>
+        <td>
+            {$v[filepath]}
+        </td>
+        <td>
+            {$v[fileext]}
+        </td>
+        <td>
+            {$v[filesize]}
+        </td>
+        <td>
+            {php} echo date('Y-m-d H:i:s', $v['dateline']);{/php}
+        </td>
+        <td>
+            {$v[uid]}
+        </td>
+    </tr>
+{/loop}
+{else}
+    <tr><td colspan="10">暂无!</td></tr>
+{/if}
+</table>
+<input type="button" class="hd-btn hd-btn-xm" value="全选" onclick="select_all()"/>
+<input type="button" class="hd-btn hd-btn-xm" value="反选" onclick="reverse_select()"/>
+<input type="button" class="hd-btn hd-btn-xm" onclick="batchDel()" value="批量删除"/>
+<div class="hd-title-header">共{$count}条</div>{$page}
+<script>
+    //全选
+    $("input#selectAllContent").click(function () {
+        $("[type='checkbox']").attr("checked", $(this).attr("checked") == "checked");
+    })
+    //全选文章
+    function select_all() {
+        $("[type='checkbox']").attr("checked", "checked");
+    }
+    //反选文章
+    function reverse_select() {
+        $("[type='checkbox']").attr("checked", function (){
+            return !$(this).attr("checked") == 1;
+        });
+    }
+    /**
+     * 批量删除
+     */
+    function batchDel(){
+        var ids=$("input[name*=attachid]:checked").serialize();
+        hd_modal({
+            width: 400,//宽度
+            height: 200,//高度
+            title: '提示',//标题
+            content: '确定删除吗',//提示信息
+            button: true,//显示按钮
+            button_success: "确定",//确定按钮文字
+            button_cancel: "关闭",//关闭按钮文字
+            timeout: 0,//自动关闭时间 0：不自动关闭
+            shade: true,//背景遮罩
+            shadeOpacity: 0.1,//背景透明度
+            success: function () {//点击确定后的事件
+                var jampUrl = window.location.href;
+                hd_ajax('index.php?attachment-batchDel',ids, jampUrl);
+            }
+        });
+    }
+    //预览图片
+    function view_image(obj){
+        var src = $(obj).attr('src');
+        var viewImg = $('#view_img');
+        //删除预览图
+        if (viewImg.length >= 1){
+            viewImg.remove();
+        }
+        //鼠标移除时删除预览图
+        $(obj).mouseout(function (){
+            $('#view_img').remove();
+        })
+        if (src){
+            var offset = $(obj).offset();
+            var _left = 100 + offset.left + "px";
+            var _top = offset.top - 50 + "px";
+            var html = '<img src="' + src + '" style="border:solid 5px #dcdcdc;position:absolute;z-index:1000;width:300px;height:200px;left:' + _left + ';top:' + _top + ';" id="view_img"/>';
+            $('body').append(html);
+        }
+    }
+</script>
+{inc:footer.htm}

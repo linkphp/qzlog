@@ -1,0 +1,172 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li>
+            <a href="index.php?u=category-index">网站栏目</a>
+        </li>
+        <li class="active">
+            <a href="index.php?u=category-edit-cid-{$category[cid]}">{$category[name]}</a>
+        </li>
+    </ul>
+</div>
+    <form onsubmit="return hd_submit(this,'index.php?u=category-edit','index.php?u=category-edit-cid-{$category[cid]}')">
+        <div class="hd-tab">
+            <ul class="hd-tab-menu">
+                <li lab="base" class="active"><a> 基本设置 </a></li>
+                <li lab="seo"><a>高级选项 </a></li>
+                <li lab="content"><a>栏目内容 </a></li>
+            </ul>
+            <div class="hd-tab-content">
+                <div lab="base" class="hd-tab-area">
+                    <table class="hd-table hd-table-form hd-form">
+                        <tr>
+                            <th>所属上级:</th>
+                            <td>
+                                <select name="pid" class="hd-w200">
+                                    <option value="0">==顶级栏目==</option>
+                                    {loop:$list $v}
+                                    {if:$category[pid] == $v[cid]}
+                                    <option value="{$v[cid]}" selected="selected">{$v[_name]}</option>
+                                    {else}
+                                    <option value="{$v[cid]}">{$v[_name]}</option>
+                                    {/if}
+                                    {/loop}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>是否显示:</th>
+                            <td>
+                                <select name="status" class="hd-w200">
+                                    {if:$category[status] == 1}
+                                    <option value="1" selected>显示</option>
+                                    <option value="0">不显示</option>
+                                    {else}
+                                    <option value="1">显示</option>
+                                    <option value="0" selected>不显示</option>
+                                    {/if}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>扩展字段:</th>
+                            <td>
+                                <select name="projectid" class="hd-w200">
+                                    <option value='0'>==请选择==</option>
+                                    {loop:$field_project $v}
+                                    <option value="{$v[projectid]}" {if:$projectid == $v[projectid]}selected{/if}>{$v[name]}</option>
+                                    {/loop}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>栏目名:</th>
+                            <td><input type="text" name="name" value="{$category[name]}" class="hd-w300" required=""/></td>
+                        </tr>
+                         <tr>
+                    			<th>上级目录:</th>
+                        		<td>根目录/{$shangji}</td>
+                    		</tr>
+                        <tr>
+                            <th>保存目录:</th>
+                            <td><input type="text" name="urlname" value="{$category[urlname]}" class="hd-w300" /> <span class="hd-validate-notice">如填写news，那么此栏目访问地址即是http://域名/news.后缀</span></td>
+                        </tr>
+                        <tr>
+                            <th>目录相对位置:</th>
+                            <td>
+                            		{if:$category[referpath] == 'parent'}
+                            		<input name="referpath" type="radio" value="parent" checked="chekced" /> 上级目录
+              					<input name="referpath" type="radio" value="basepath" /> 站点根目录 <span class="hd-validate-notice">生成静态网页时有效</span>
+              					{/if}
+                                {if:$category[referpath] == 'basepath'}
+                                <input name="referpath" type="radio" value="parent" /> 上级目录
+              					<input name="referpath" type="radio" value="basepath" checked="chekced"/> 站点根目录 <span class="hd-validate-notice">生成静态网页时有效</span>
+                                {/if}
+                            </td>
+                        </tr>
+                        <tr>
+                        <th>列表数量:</th>
+                        		<td><input type="text" name="pagenum" value="{$category[pagenum]}" class='hd-w50'/> <span class='hd-validate-notice'>列表页显示多少条/页，栏目属性为列表时生成静态有效。</span></td>
+                    		</tr>
+                        <tr>
+                            <th>排序:</th>
+                            <td><input type="text" name="sort" class='hd-w50' value="{$category[sort]}" /></td>
+                        </tr>
+                        <tr>
+                            <th>栏目属性:</th>
+                            <td>
+                                {if:$category[attribute] == 1}
+                                <label><input name="attribute" type="radio" value="1" checked="true"> 频道封面 (栏目本身不允许发布文档</label>
+                                <label><input name="attribute" type="radio" value="2"> 列表页 (允许在本栏目发布文档，并生成文档列表）</label>
+                                <label><input name="attribute" type="radio" value="3"> 外部链接 （在"保存目录"处填写网址）</label>
+                                {/if}
+                                {if:$category[attribute] == 2}
+                                <label><input name="attribute" type="radio" value="1"> 频道封面 (栏目本身不允许发布文档）</label>
+                                <label><input name="attribute" type="radio" value="2" checked="true"> 列表页 (允许在本栏目发布文档，并生成文档列表）</label>
+                                <label><input name="attribute" type="radio" value="3"> 外部链接 （在"保存目录"处填写网址）</label>
+                                {/if}
+                                {if:$category[attribute] == 3}
+                                <label><input name="attribute" type="radio" value="1"> 频道封面 (栏目本身不允许发布文档）</label>
+                                <label><input name="attribute" type="radio" value="2"> 列表页 (允许在本栏目发布文档，并生成文档列表）</label>
+                                <label><input name="attribute" type="radio" value="3" checked="true"> 外部链接 （在"保存目录"处填写网址）</label>
+                                {/if}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div lab="seo" class="hd-tab-area">
+                    <table class="hd-table hd-table-form hd-form">
+                        <tr>
+                            <th>SEO标题:</th>
+                            <td><input type="text" name="seotitle" value="{$category[seotitle]}" class="hd-w300"/></td>
+                        </tr>
+                        <tr>
+                            <th>SEO关键词:</th>
+                            <td><input type="text" name="seokeywords" value="{$category[seokeywords]}" class="hd-w300"/></td>
+                        </tr>
+                        <tr>
+                            <th>SEO描述:</th>
+                            <td><textarea name="seodescription" class="hd-w500 hd-h100">{$category[seodescription]}</textarea></td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div lab="content" class="hd-tab-area">
+                    <table class="hd-table hd-table-form hd-form">
+                        <tr>
+                            <th>封面模板:</th>
+                            <td>
+                                <input type="text" name="att_tpl" value="{$category[att_tpl]}" class="hd-w300"/>
+                                <span class='hd-validate-notice'>栏目属性选择“频道封面” 时有效</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>列表页模板:</th>
+                            <td>
+                                <input type="text" name="list_tpl" value="{$category[list_tpl]}" class="hd-w300"/>
+                                <span class='hd-validate-notice'>栏目属性选择“列表页” 时有效</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>内容页模板:</th>
+                            <td>
+                                <input type="text" name="show_tpl" value="{$category[show_tpl]}" class="hd-w300"/>
+                                <span class='hd-validate-notice'>栏目属性选择“列表页” 时有效</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>页面内容:</th>
+                            <td><textarea name="content" class="editor" style="width: 90%">{$category[content]}</textarea></td>
+                        </tr>
+                        <tr>
+                            <th>说明:</th>
+                            <td>栏目内容是替代原来栏目单独页的更灵活的一种方式，通常用于企业简介之类的用途。</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    <input type="hidden" name="cid" value="{$category[cid]}"/>
+    <input type="submit" class="hd-btn" value="确定" />
+    </form>
+{inc:footer.htm}

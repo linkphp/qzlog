@@ -1,0 +1,250 @@
+{inc:header.htm}
+<link type="text/css" rel="stylesheet" href="{$SITE_URL}static/css/content.css" />
+<div class="admin">
+<form onsubmit="return false" class="hd-form">
+    <input type="hidden" name="nid" value="{$data[nid]}"/>
+    <!--右侧区域-->
+    <div class="content_right">
+        <table class="hd-table hd-table-form">
+            <tr>
+                <th>缩略图</th>
+            </tr>
+            <tr>
+                <td>
+					<img src="{if:$data[thumb]== ''}{$SITE_URL}static/images/upload_pic.png{else}/{$data[thumb]}{/if}" class='hd-w140 hd-h110' id='thumbImg' />
+					<input type='hidden' name='thumb' value='{$data[thumb]}' class='w300' readonly='' />
+					<button class='hd-btn hd-btn-xm radius-rounded' id="image1" type='button'>上传图片</button>&nbsp;&nbsp;
+					<button class='hd-btn hd-btn-xm radius-rounded' onclick='removeThumb("thumb")' type='button'>移除图片</button>
+				</td>
+			</tr>
+			<tr>
+				<th>跳转链接</th>
+			</tr>
+			<tr>
+				<td><input type="text" class="w150" name="redirecturl" value="{$data[redirecturl]}" /></td>
+			</tr>
+			<tr>
+				<th>来源</th>
+			</tr>
+			<tr>
+				<td><input type="text" class="w150" name="source" value="{$data[source]}"/></td>
+			</tr>
+			<tr>
+				<th>作者</th>
+			</tr>
+			<tr>
+				<td><input type="text" class="w150" name="editor_username" value="{$data[editor_username]}"/></td>
+			</tr>
+			<tr>
+				<th>点击数</th>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" class="w150" name="click" value="{$data[click]}" /> </td>
+			</tr>
+			<tr>
+				<th>状态</th>
+			</tr>
+			<tr>
+				<td>
+					{if:$data[status] == 1}
+						<label><input type='radio' name="status" value="1" checked="checked" /> 发表</label>&nbsp;&nbsp;
+						<label><input type='radio' name="status" value="0" /> 草稿</label>
+	            	{else}
+	            		<label><input type='radio' name="status" value="1" /> 发表</label>&nbsp;&nbsp;
+						<label><input type='radio' name="status" value="0" checked="checked"/> 草稿</label>
+	            	{/if}
+				</td>
+			</tr>
+			<tr>
+                <td>
+                    <input type="submit" class="hd-btn hd-btn-primary" value="确定" />
+                    <input type="button" class="hd-btn" onclick="window.close()" value="关闭">
+                </td>
+            </tr>
+		</table>
+	</div>
+    <div class="content_left">
+        <div class="hd-title-header">添加文档</div>
+        <table class="hd-table hd-table-form">
+            <tr>
+                <th>文档标题 <span class="star">*</span></th>
+				<td class="form-inline">
+					<input id="title" type="text" name="title" class="hd-w400 title" value="{$data[title]}">
+                    <label class="checkbox inline">
+                        标题颜色 <input type="text" name="color" class="hd-w100" value="{$data[color]}">
+                    </label>
+					<button type="button" onclick="selectColor(this,'color')" class="hd-btn hd-btn-xm">选取颜色</button>
+					<label>
+						{if:$data[new_window] == 1}
+						<input type="checkbox" name="new_window" value="1" checked> 新窗口打开
+						{else}
+						<input type="checkbox" name="new_window" value="1"> 新窗口打开
+						{/if}
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<th>网站栏目 <span class="star">*</span></th>
+				<td>
+					<select name='cid' onchange="$.category.extfield(this.value)" class="hd-w200">
+						{loop:$list $v}
+                    	{if:$data[cid] == $v[cid]}
+                    	<option value="{$v[cid]}" selected="selected" {if:$v[attribute] !=2}disabled{/if}>{$v[_name]}</option>
+						{else}
+						<option value="{$v[cid]}" {if:$v[attribute] !=2}disabled{/if}>{$v[_name]}</option>
+						{/if}
+						{/loop}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>属性</th>
+				<td>
+					<label><input type="checkbox" name="flag[]" value="1" {if:in_array(1,$data[flag])} checked{/if}> 热门[1]</label>
+					<label><input type="checkbox" name="flag[]" value="2" {if:in_array(2,$data[flag])} checked{/if}> 置顶[2]</label>
+					<label><input type="checkbox" name="flag[]" value="3" {if:in_array(3,$data[flag])} checked{/if}> 推荐[3]</label>
+					<label><input type="checkbox" name="flag[]" value="4" {if:in_array(4,$data[flag])} checked{/if}> 图片[4]</label>
+					<label><input type="checkbox" name="flag[]" value="5" {if:in_array(5,$data[flag])} checked{/if}> 精华[5]</label>
+					<label><input type="checkbox" name="flag[]" value="6" {if:in_array(6,$data[flag])} checked{/if}> 幻灯片[6]</label>
+				</td>
+			</tr>
+			<tr>
+				<th>内容 <span class="star">*</span></th>
+				<td>
+					<textarea name="content" id="editor_id" class="hd-h360 editor" style="width:99%;">{$data[content]}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>图集</th>
+				<td>
+					<fieldset class='img_list'>
+						<legend style='color:#666;font-size: 12px;line-height: 25px;padding: 0px 10px; text-align:center;margin: 0px;'>图集列表</legend>
+						<center>
+							<div style='color:#666;font-size:12px;margin-bottom: 5px;'>
+								您最多可以同时上传
+								<span style='color:red' id='filesNumText'>50</span> 个图片
+							</div>
+						</center>
+						<div id='filesBox' class='fileList'>
+							<ul id='J_imageView'>
+								{loop:$data[images] $v $k}
+								<li id="{$v['id']}">
+									<img src="/upload/{$v['filepath']}" class="hd-w50 hd-h50" title="点击预览大图" onmouseover="view_image(this)"/>
+									<input type="hidden" value="{$v['id']}" name="gallery[]"/>
+									<a class='hd-btn hd-btn-danger hd-btn-xm' href="javascript:del_tuji({$v['id']})">x</a>
+								</li>
+								{/loop}
+							</ul>
+						</div>
+					</fieldset>
+					<button class='hd-btn hd-btn-sm radius-none' id="J_selectImage" type='button'>上传图片</button>
+                    <span class='hd-validate-notice'></span> </td>
+			</tr>
+			<tr>
+				<th>TAG</th>
+				<td>
+					<input class="hd-w400" type="text" name="tag" value="{$data[tags]}" onKeyUp="ReplaceDot(this)" />
+                    <span class="hd-validate-notice">多个请用逗号分隔</span>
+                </td>
+			</tr>
+			<tr>
+				<th>关键词</th>
+				<td>
+					<input class="hd-w400" type="text" name="keywords" value="{$data[keywords]}" onKeyUp="ReplaceDot(this)"/>
+                    <span class="hd-validate-notice">多个请用英文逗号隔开</span>
+                </td>
+			</tr>
+			<tr>
+				<th>描述</th>
+				<td>
+					<textarea name="description" class="hd-w600 hd-h100">{$data[description]}</textarea>
+                    <span class="hd-validate-notice">如果不填写，自动从文档提取</span>
+				</td>
+			</tr>
+			<tr>
+				<th>扩展字段</th>
+				<td>
+                    {loop:$data['field'] $v}
+					{if:$v['field'] == 'textarea'}
+						{$v['fieldname']} : <textarea name="{$v['var']}" class="simple" >{$v['value']}</textarea><br/>
+					{elseif:$v['field'] == 'file'}
+						{$v['fieldname']} : <input type="text" id="{$v['var']}url" class="hd-w300" value="{$v['value']}" name="{$v['var']}" readonly="readonly"/> <input type="button" onclick="$.category.insertfile('{$v['var']}','file');" value="选择文件" class="hd-btn hd-btn-sm"/><br/>
+                    {elseif:$v['field'] == 'image'}
+                    	{$v['fieldname']} : <input type="text" id="{$v['var']}url" class="hd-w300" value="{$v['value']}" name="{$v['var']}" readonly="readonly"/> <input type="button" onclick="$.category.insertfile('{$v['var']}','image');" value="选择图片" class="hd-btn hd-btn-sm"/><br/>
+                    {else}
+						{$v['fieldname']} : <input type="text" value="{$v['value']}" class="hd-w300" name="{$v['var']}" /><br/>
+					{/if}
+				    {/loop}
+                </td>
+			</tr>
+		</table>
+	</div>
+</form>
+</div>
+<script type="text/javascript" src="{$SITE_URL}static/js/content.js"></script>
+<script type="text/javascript" src="{$SITE_URL}static/cal/lhgcalendar.min.js"></script>
+<script>
+function del_tuji(id){
+	hd_ajax('index.php?u=article-del_attachment', {id:id},'');
+	$("#"+id).remove();
+}
+</script>
+<script type="text/javascript">
+//预览图片
+    function view_image(obj) {
+        var src = $(obj).attr('src');
+        var viewImg = $('#view_img');
+        //删除预览图
+        if (viewImg.length >= 1) {
+            viewImg.remove();
+        }
+        //鼠标移除时删除预览图
+        $(obj).mouseout(function () {
+            $('#view_img').remove();
+        })
+        if (src) {
+            var offset = $(obj).offset();
+            var _left = 100 + offset.left + "px";
+            var _top = offset.top - 50 + "px";
+            var html = '<img src="' + src + '" style="border:solid 5px #dcdcdc;position:absolute;z-index:1000;width:300px;height:200px;left:' + _left + ';top:' + _top + ';" id="view_img"/>';
+            $('body').append(html);
+        }
+    }
+
+	$("form").submit(function (){
+        var data=$(this).serialize();
+        var url="index.php?u=article-edit";
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "JSON",
+            cache: false,
+            data: data,
+            success: function (data){
+                if (data.status == 1){
+                    hd_alert({
+                        message: data.message,//显示内容
+                        timeout: 2,//显示时间
+                        success: function () {
+                            //这是回调函数
+                            window.opener.location.reload(true);
+                            window.close();
+                        }
+                    })
+                }else{
+                    hd_alert({
+                        message: data.message,//显示内容
+                        timeout: 2,//显示时间
+                        success: function () {
+                            //这是回调函数
+                            window.opener.location.reload(true);
+                            window.close();
+                        }
+                    })
+                }
+            }
+        })
+    })
+</script>
+{inc:footer.htm}

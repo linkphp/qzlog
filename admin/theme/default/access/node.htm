@@ -1,0 +1,92 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li class="active"><a href="index.php?u=access-node">节点管理</a></li>
+        <li><a href="index.php?u=access-add">添加菜单/节点</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">注意</div>
+<div class="help">
+    <ul>
+        <li>将影响后台菜单布局与权限控制，请谨慎操作；最多支持到三级，三级以上将不显示。</li>
+        <li>如果二次开发QZLOG增加新功能，请自行增加节点。</li>
+    </ul>
+</div>
+<form onsubmit="return hd_submit(this,'index.php?u=access-upNodeSort','index.php?u=access-node')">
+    <table class="hd-table hd-table-list hd-form">
+    	<thead>
+        <tr>
+        	<td class="hd-w60">排序</td>
+            <td>节点结构</td>
+            <td class="hd-w50">节点ID</td>
+            <td>控制器</td>
+            <td>方法</td>
+            <td class="hd-w50">类型</td>
+            <td>状态</td>
+            <td class="hd-w80">操作</td>
+        </tr>
+        </thead>
+        <tbody>
+		{loop:$list $v}
+        <tr>
+        	<td><input type="text" value="{$v[sort]}" name="list_sort[{$v[id]}]" class="hd-w50"/></td>
+			<td> {$v[_name]}</td>
+			<td>{$v[id]}</td>
+			<td>{$v[control]}</td>
+			<td>{$v[function]}</td>
+			<td>{if:$v[status] == 1}正常
+                {else}禁用
+                {/if}
+			</td>
+			<td>{if:$v[menu] == 1}菜单
+                {else}权限节点
+                {/if}
+			</td>
+			<td class="hd-w180">
+				{if:$v[status] == 1}
+					<a href="index.php?u=access-edit-id-{$v[id]}">编辑</a>  |
+					<a href="javascript:ajax_node_status({$v[id]});">禁用</a>  |
+					<a href="javascript:ajax_node_del({$v[id]});">删除</a>
+                {else}
+					<a href="index.php?u=access-edit-id-{$v[id]}">编辑</a>  |
+					<a href="javascript:ajax_node_status({$v[id]});">启用</a>  |
+					<a href="javascript:ajax_node_del({$v[id]});">删除</a>
+                {/if}
+
+			</td>
+        </tr>
+		{/loop}
+        </tbody>
+    </table>
+    <input type="submit" class="hd-btn" value="排序" />
+    </form>
+<script>
+	function ajax_node_status($NodeId) {
+	    hd_ajax('index.php?u=access-NodeStatus', {nodeId: $NodeId},'index.php?u=access-node');
+	}
+
+	function ajax_node_del($NodeId){
+		hd_modal({
+	        width: 400,//宽度
+	        height: 200,//高度
+	        title: '提示',//标题
+	        content: '确定删除吗',//提示信息
+	        button: true,//显示按钮
+	        button_success: "确定",//确定按钮文字
+	        button_cancel: "关闭",//关闭按钮文字
+	        timeout: 0,//自动关闭时间 0：不自动关闭
+	        shade: true,//背景遮罩
+	        shadeOpacity: 0.2,//背景透明度
+	        success: function () {//点击确定后的事件
+	            hd_ajax('index.php?u=access-delNode', {nodeId: $NodeId},'index.php?u=access-node');
+	        },
+	        cancel: function () {//点击关闭后的事件
+	            hd_alert({
+	                message: '取消删除',//显示内容
+	                timeout: 1//显示时间
+	            })
+	        }
+	    });
+	}
+</script>
+{inc:footer.htm}

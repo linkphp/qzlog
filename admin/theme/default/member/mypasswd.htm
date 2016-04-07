@@ -1,0 +1,28 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+    		<li class="active"><a href="index.php?u=member-mypasswd">我的密码</a></li>
+        <li><a href="index.php?u=member-myinfo">我的信息</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">修改密码</div>
+<form onsubmit="return hd_submit(this,'index.php?u=member-mypasswd','index.php?u=member-mypasswd')">
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">原密码 <span class="star">*</span></th>
+            <td><input type="password" name="oldpw" class="hd-w200" required=""/></td>
+        </tr>
+        <tr>
+            <th class="hd-w100">新密码 <span class="star">*</span></th>
+            <td><input type="password" name="newpw" class="hd-w200" required=""/></td>
+        </tr>
+        <tr>
+            <th>新密码确认 <span class="star">*</span></th>
+            <td><input type="password" name="confirm_newpw" class="hd-w200" required=""/></td>
+        </tr>
+    </table>
+    <input type="hidden" name="uid" value="{$userInfo[uid]}" />
+    <input type="hidden" name="salt" value="{$userInfo[salt]}" />
+    <input type="submit" class="hd-btn" value="确定" />
+</form>
+{inc:footer.htm}

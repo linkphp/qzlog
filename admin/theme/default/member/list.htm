@@ -1,0 +1,131 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li class="active"><a href="index.php?u=member-index">用户列表</a></li>
+        <li><a href="index.php?u=member-add">添加用户</a></li>
+    </ul>
+</div>
+<div class="search">
+	<form action="index.php?u=member-index" method="get">
+	<input type="hidden" name="u" value="member-index">
+		<select name="srchtype">
+			{if:$srchtype == ''}
+            <option value="username">用户名</option>
+			<option value="nickname">昵称</option>
+			<option value="email">Email</option>
+			<option value="regip">注册IP</option>
+			{/if}
+			{if:$srchtype == 'username'}
+			<option value="username" selected="selected">用户名</option>
+			<option value="nickname">昵称</option>
+			<option value="email">Email</option>
+			<option value="regip">注册IP</option>
+			{/if}
+			{if:$srchtype == 'nickname'}
+			<option value="username">用户名</option>
+			<option value="nickname" selected="selected">昵称</option>
+			<option value="email">Email</option>
+			<option value="regip">注册IP</option>
+			{/if}
+			{if:$srchtype == 'email'}
+			<option value="username">用户名</option>
+			<option value="nickname">昵称</option>
+			<option value="email" selected="selected">Email</option>
+			<option value="regip">注册IP</option>
+			{/if}
+			{if:$srchtype == 'regip'}
+			<option value="username">用户名</option>
+			<option value="nickname">昵称</option>
+			<option value="email">Email</option>
+			<option value="regip" selected="selected">注册IP</option>
+			{/if}
+		</select>
+	<input type="text" name="keyword" value="{$keyword}" class="hd-w200"/>
+	<input type="submit" class="hd-btn hd-btn-xm" value="搜索" />
+    </form>
+</div>
+
+  <table class="hd-table hd-table-list hd-form">
+    <thead>
+      <tr>
+        <td>UID</td>
+        <td>用户名</td>
+        <td>昵称</td>
+        <td>Email</td>
+        <td>创建时间</td>
+        <td>注册IP</td>
+        <td>最后登录时间</td>
+        <td>最后IP</td>
+        <td>所属角色</td>
+        <td>登录次数</td>
+        <td>状态</td>
+        <td>操作</td>
+      </tr>
+  </thead>
+  <tbody>
+  {if:!empty($list)}
+  	{loop:$list $v}
+    <tr>
+      	<td class="hd-w50">{$v[uid]}</td>
+      	<td>{$v[username]}</td>
+        <td>{$v[nickname]}</td>
+        <td>{$v[email]}</td>
+        <td>{php} echo date('Y-m-d H:i:s', $v['regdate']);{/php}</td>
+        <td>{$v[regip]}</td>
+        <td>
+	        {php}
+	        	if(!empty($v['last_login_time'])){
+	        		echo date('Y-m-d H:i:s', $v['last_login_time']);
+	        	}
+	        {/php}
+        </td>
+        <td>{$v[last_login_ip]}</td>
+        <td><a href="index.php?u=access-auth-role_id-{$v[role_id]}">{$v[roleName]}</a></td>
+        <td>{$v[login_count]}</td>
+        <td>
+			{if:$v[status] == 1}正常
+			{else}<strong>禁用</strong>
+			{/if}
+        </td>
+        <td class="hd-w80">
+            {if:$v[uid] == 1}
+            {else}
+	        		<a href="index.php?u=member-edit-uid-{$v[uid]}">编辑</a> |
+	            <a href="javascript:ajax_del_member({$v[uid]});" class="delete">删除</a>
+            {/if}
+		</td>
+    </tr>
+	{/loop}
+  {else}
+  <tr><td colspan="10"><b>暂无!</b></td></tr>
+  {/if}
+  </tbody>
+</table>
+<div class="hd-title-header">共{$count}条</div>{$page}
+<script>
+    function ajax_del_member(uid){
+		hd_modal({
+	        width: 400,//宽度
+	        height: 200,//高度
+	        title: '提示',//标题
+	        content: '确定删除吗',//提示信息
+	        button: true,//显示按钮
+	        button_success: "确定",//确定按钮文字
+	        button_cancel: "关闭",//关闭按钮文字
+	        timeout: 0,//自动关闭时间 0：不自动关闭
+	        shade: true,//背景遮罩
+	        shadeOpacity: 0.2,//背景透明度
+	        success: function () {//点击确定后的事件
+	            var jampUrl = window.location.href;
+	            hd_ajax('index.php?u=member-del', {uid:uid},jampUrl);
+	        },
+	        cancel: function () {//点击关闭后的事件
+	            hd_alert({
+	                message: '取消删除',//显示内容
+	                timeout: 1//显示时间
+	            })
+	        }
+	    });
+    }
+</script>
+{inc:footer.htm}

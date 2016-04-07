@@ -1,0 +1,126 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li class="active">
+        	<a href="index.php?u=article-draft">草稿文档</a>
+        </li>
+    </ul>
+</div>
+<table class="hd-table hd-table-list hd-form">
+	<thead>
+      <tr>
+		<td><input type="checkbox" id="selectAllContent"/></td>
+      	<td>ID</td>
+        <td>标题</td>
+        <td>发布人</td>
+        <td>栏目</td>
+        <td>添加时间</td>
+        <td>点击</td>
+        <td>状态</td>
+        <td>操作</td>
+      </tr>
+	</thead>
+	<tbody>
+	{if:!empty($list)}
+  	{loop:$list $v}
+    <tr>
+		<td><input type="checkbox" name="nid[]" value="{$v[nid]}"/></td>
+      	<td>{$v[nid]}</td>
+      	<td><a href="{$SITE_URL}index.php?u=show-index-id-{$v[nid]}{php}echo $_ENV['_config']['url_suffix'];{/php}" target="__blank">{$v[title]}</a> {$v[_flag]}</td>
+        <td class="hd-w90">{$v[editor_username]}</td>
+        <td class="hd-w100">{$v[_category][name]}</td>
+        <td class="hd-w190">{php} echo date('Y-m-d H:i:s', $v['addtime']);{/php}</td>
+        <td class="hd-w60">{$v[click]}</td>
+        <td class="hd-w70">{if:$v[status] == 1}已发布{else}<strong>草稿</strong>{/if}</td>
+        <td class="hd-w100">
+			<a href="javascript:ajax_online({$v[nid]});">快速发布</a>
+		</td>
+	</tr>
+	{/loop}
+	{else}
+	<tr><td colspan="9"><b>暂无!</b></td></tr>
+	{/if}
+	</tbody>
+</table>
+<input type="button" class="hd-btn hd-btn-xm" value="全选" onclick="select_all()"/>
+<input type="button" class="hd-btn hd-btn-xm" value="反选" onclick="reverse_select()"/>
+<input type="button" class="hd-btn hd-btn-xm" onclick="batchOnline()" value="批量发布"/>
+<input type="button" class="hd-btn hd-btn-xm" onclick="batchDel()" value="批量删除"/>
+<div class="hd-title-header">共 {$count} 条记录</div>
+<div class="hd-page">{$page}</div>
+<script>
+	//全选
+	$("input#selectAllContent").click(function (){
+	    $("[type='checkbox']").attr("checked", $(this).attr("checked") == "checked");
+	})
+	//全选文章
+	function select_all(){
+	    $("[type='checkbox']").attr("checked", "checked");
+	}
+	//反选文章
+	function reverse_select(){
+	    $("[type='checkbox']").attr("checked", function (){
+	        return !$(this).attr("checked") == 1;
+	    });
+	}
+	//上线
+	function ajax_online(nid){
+		var $jampUrl = window.location.href;
+		hd_ajax('index.php?u=article-online', {nid:nid},$jampUrl);
+	}
+	//批量删除
+	function batchDel(){
+		var nid=$("input[name*=nid]:checked");
+		hd_modal({
+			width: 400,//宽度
+			height: 200,//高度
+			title: '提示',//标题
+			content: '确定删除吗',//提示信息
+			button: true,//显示按钮
+			button_success: "确定",//确定按钮文字
+			button_cancel: "关闭",//关闭按钮文字
+			timeout: 0,//自动关闭时间 0：不自动关闭
+			shade: true,//背景遮罩
+			shadeOpacity: 0.1,//背景透明度
+			success: function () {//点击确定后的事件
+				var jampUrl = window.location.href;
+				hd_ajax('index.php?u=article-batchDel', nid,jampUrl);
+			},
+	        cancel: function (){//点击关闭后的事件
+	            hd_alert({
+	                message: '取消删除',//显示内容
+	                timeout: 1//显示时间
+	            })
+	        }
+		});
+	}
+
+	//批量发布文章
+	function batchOnline(){
+		var nid=$("input[name*=nid]:checked");
+		hd_modal({
+			width: 400,//宽度
+			height: 200,//高度
+			title: '提示',//标题
+			content: '确定发布吗',//提示信息
+			button: true,//显示按钮
+			button_success: "确定",//确定按钮文字
+			button_cancel: "关闭",//关闭按钮文字
+			timeout: 0,//自动关闭时间 0：不自动关闭
+			shade: true,//背景遮罩
+			shadeOpacity: 0.1,//背景透明度
+			success: function () {//点击确定后的事件
+				var jampUrl = window.location.href;
+				hd_ajax('index.php?u=article-batchOnline', nid,jampUrl);
+			},
+	        cancel: function (){//点击关闭后的事件
+	            hd_alert({
+	                message: '取消发布',//显示内容
+	                timeout: 1//显示时间
+	            })
+	        }
+		});
+	}
+
+</script>
+{inc:footer.htm}

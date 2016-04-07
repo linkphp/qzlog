@@ -1,0 +1,25 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+        <li><a href="index.php?u=access-index">角色列表</a></li>
+        <li class="active"><a href="index.php?u=access-addrole">添加角色</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">添加角色</div>
+	<form onsubmit="return hd_submit(this,'index.php?access-addrole','index.php?access-addrole')">
+
+        <table class="hd-table hd-table-form hd-form">
+            <tr>
+                <th class="hd-w100">角色名 <span class="star">*</span></th>
+                <td><input type="text" name="role_name" class="hd-w200" required=""/></td>
+            </tr>
+            <tr>
+                <th class="hd-w100">描述</th>
+                <td><textarea name="description" class="hd-w300 hd-h80"></textarea></td>
+            </tr>
+
+        </table>
+        <input type="hidden" name='FORM_HASH' value="{$C[FORM_HASH]}" />
+        <input type="submit" class="hd-btn" value="确定" />
+	</form>
+{inc:footer.htm}

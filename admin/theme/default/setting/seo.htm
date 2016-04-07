@@ -1,0 +1,32 @@
+{inc:header.htm}
+<div class="hd-menu-list">
+    <ul>
+    		<li><a href="index.php?u=setting-index">系统设置</a></li>
+        <li class="active"><a href="index.php?u=setting-seo">SEO设置</a></li>
+        <li><a href="index.php?u=setting-plugin">插件开关</a></li>
+        <li><a href="index.php?u=setting-thumb">缩略水印</a></li>
+        <li><a href="index.php?u=setting-upload">上传设置</a></li>
+        <li><a href="index.php?u=setting-rewrite">伪静态设置</a></li>
+        <li><a href="index.php?u=setting-html">生成静态设置</a></li>
+    </ul>
+</div>
+<div class="hd-title-header">系统设置</div>
+<form onsubmit="return hd_submit(this,'index.php?u=setting-seo','index.php?u=setting-seo')">
+    <table class="hd-table hd-table-form hd-form">
+        <tr>
+            <th class="hd-w100">SEO标题</th>
+            <td>{$input[seo_title]} <span class="hd-validate-notice">一般不超过80个字符</span></td>
+        </tr>
+        <tr>
+            <th>SEO关键字</th>
+            <td>{$input[seo_keywords]} <span class="hd-validate-notice">多个用英文','隔开 一般不超过100个字符</span></td>
+        </tr>
+        <tr>
+            <th>SEO描述</th>
+            <td>{$input[seo_description]} <span class="hd-validate-notice">网站描述,一般不超过200个字符</span></td>
+        </tr>
+
+    </table>
+    <input type="submit" class="hd-btn" value="确定" />
+</form>
+{inc:footer.htm}
