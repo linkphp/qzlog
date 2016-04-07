@@ -1,6 +1,10 @@
-轻舟CMS(QZLOG)，基于PHP+MySQL的技术架构。
-
 QZLOG定位于高安全、高性能、高扩展、高SEO、高傻瓜化。
+轻舟CMS(QZLOG)，是一款PHP+MYSQL的MVC+AOP模式开发的网站管理系统。程序标签语法类似DEDECMS一样简单，适合美工人员快速建立站点。插件模式强大，可以快速开发各种插件扩展来达到更加强大功能。您可以在保留我们版权的情况下完全免费使用QZLOG。
+官网 http://www.qzlog.com
+手册 http://doc.qzlog.com
+论坛 http://www.qzlog.com/bbs
+
+目前由于个人原因，没时间开发和维护，现在功能基本ok（生成静态除外），如果你也喜欢开源，欢迎加入我们一起开发，联系QQ：612012/595785872
 
 QZLOG2.0目录结构
 	|--admin					管理后台
@@ -30,7 +34,7 @@ QZLOG2.0目录结构
 	| .htaccess					apache伪静态文件
 	| index.php					主入口文件
 
-QZLOG2.0简易模板引擎(共8个标签) 更多详细标签请查看后台模板标签手册
+QZLOG2.0简易模板引擎(共8个标签) 更多详细标签请查看模板标签手册
 1，{inc:header.htm}					包含模板
 2，{hook:header_before.htm}			模板钩子(方便插件修改模板)
 3，{php}{/php}						模板支持PHP代码 (不支持<??><?php?>的写法)
